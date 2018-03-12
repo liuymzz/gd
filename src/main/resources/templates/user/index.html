@@ -68,44 +68,14 @@
         <br/>
 
         <div class="layui-row layui-col-space10">
-            <div class="layui-col-md3">
-                <a href="#" class="layui-btn layui-btn-lg layui-btn-radius">
-                    <i class="layui-icon"
-                       style="font-size: 30px;">&#xe654;</i>
-                    创建课程
+
+            <div th:each="resource:${resourceList}" class="layui-col-md4">
+                <a th:href="${resource.resourcePath}" href="#"
+                   class="layui-btn layui-btn-lg layui-btn-radius">
+                    <i th:utext="${resource.resourceIcon}" class="layui-icon"
+                       style="font-size: 30px;">&#xe618;</i>
+                    <i th:utext="${resource.resourceName}">批改作业</i>
                 </a>
-            </div>
-
-            <div class="layui-col-md3">
-            <a href="#" class="layui-btn layui-btn-lg layui-btn-radius">
-                <i class="layui-icon"
-                   style="font-size: 30px;">&#xe63a;</i>
-                发起互动
-            </a>
-            </div>
-
-            <div class="layui-col-m3">
-            <a href="#" class="layui-btn layui-btn-lg layui-btn-radius">
-                <i class="layui-icon"
-                   style="font-size: 30px;">&#xe612;</i>
-                随机点到
-            </a>
-            </div>
-
-            <div class="layui-col-md3">
-            <a href="#" class="layui-btn layui-btn-lg layui-btn-radius">
-                <i class="layui-icon"
-                   style="font-size: 30px;">&#xe621;</i>
-                发布课后作业
-            </a>
-            </div>
-
-            <div class="layui-col-md4">
-            <a href="#" class="layui-btn layui-btn-lg layui-btn-radius">
-                <i class="layui-icon"
-                   style="font-size: 30px;">&#xe618;</i>
-                批改作业
-            </a>
             </div>
 
         </div>
