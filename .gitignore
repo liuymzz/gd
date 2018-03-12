@@ -23,4 +23,5 @@ nbdist/
 .nb-gradle/
 
 ~*.*
-rebel.xml
+
+/src/main/resources/rebel.xml
