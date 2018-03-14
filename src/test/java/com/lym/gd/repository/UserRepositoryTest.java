@@ -24,11 +24,6 @@ public class UserRepositoryTest {
 
     @Test
     public void saveUser() {
-        User user = new User();
-        user.setUserId(UUID.randomUUID().toString());
-        user.setUserCreateDate(new Date());
-
-        userRepository.save(user);
     }
 
     @Test

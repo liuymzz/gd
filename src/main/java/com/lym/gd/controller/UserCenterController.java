@@ -27,15 +27,8 @@ public class UserCenterController {
 
     @GetMapping("/")
     public String index(HttpSession session, Model model) {
-        User u = new User();
-        u.setUserRole("2");
-        u.setUserName("张三");
-        u.setUserPhone("18888888888");
-        u.setUserSignature("----------------------------");
-        session.setAttribute("user",u);
-
         User user = (User) session.getAttribute("user");
-
+    System.out.println("首页");
         List<Resource> resourceList = resourceService.findResourcesByUser(user);
 
         model.addAttribute("resourceList", resourceList);
