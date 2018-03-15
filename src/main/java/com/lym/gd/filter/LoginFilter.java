@@ -2,7 +2,7 @@ package com.lym.gd.filter;
 
 import com.lym.gd.entity.LoginFilterEntity;
 import com.lym.gd.entity.User;
-import com.lym.gd.repository.LoginFilterRepository;
+import com.lym.gd.repository.LoginFilterEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.*;
@@ -21,11 +21,11 @@ import java.util.List;
 public class LoginFilter implements Filter {
   private static List<LoginFilterEntity> loginFilterEntityList;
 
-  @Autowired private LoginFilterRepository loginFilterRepository;
+  @Autowired private LoginFilterEntityRepository loginFilterEntityRepository;
 
   @Override
   public void init(FilterConfig filterConfig) {
-    loginFilterEntityList = loginFilterRepository.findAll();
+    loginFilterEntityList = loginFilterEntityRepository.findAll();
   }
 
   @Override
