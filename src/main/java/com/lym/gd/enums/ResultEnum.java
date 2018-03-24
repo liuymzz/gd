@@ -8,7 +8,7 @@ import lombok.Getter;
  */
 @Getter
 public enum ResultEnum {
-
+;
     private Integer code;
 
     private String message;
