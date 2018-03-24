@@ -7,7 +7,7 @@ import lombok.Getter;
  * @date 2018/3/12 下午8:30
  */
 @Getter
-public class ResultEnum {
+public enum ResultEnum {
 
     private Integer code;
 
