@@ -20,9 +20,9 @@ public class ResultVOUtil {
         return success(null);
     }
 
-    public static ResultVO error(Integer code,String message){
+    public static ResultVO error(String message){
         ResultVO resultVO = new ResultVO();
-        resultVO.setCode(code);
+        resultVO.setCode(1);
         resultVO.setMessage(message);
         return resultVO;
     }

@@ -1,10 +1,13 @@
 package com.lym.gd.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.lym.gd.utils.NumberUtil;
+import com.lym.gd.utils.ResultVOUtil;
+import com.lym.gd.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -13,8 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.lang.reflect.Type;
 
 /**
  * @author liuyaming
@@ -32,7 +34,7 @@ public class SafeController {
 
   @GetMapping("/pictureVerifyCode")
   public void pictureComputeVerify(
-      HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
+      HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,String type)
       throws IOException {
 
     byte[] captchaChallengeAsJpeg;
@@ -44,11 +46,8 @@ public class SafeController {
       int result = v1 + v2;
       String string = "" + v1 +"+"+ v2 + "=?";
 
-        Map<String,Object> pictureVerifyCode = new HashMap<>(1);
-        pictureVerifyCode.put("pictureVerifyCode",string);
-        pictureVerifyCode.put("result",result);
+      httpServletRequest.getSession().setAttribute("pictureVerifyCode"+type, String.valueOf(result));
 
-      httpServletRequest.getSession().setAttribute("pictureVerifyCode", pictureVerifyCode);
       // 使用生产的验证码字符串返回一个BufferedImage对象并转为byte写入到byte数组中
       BufferedImage challenge = defaultKaptcha.createImage(string);
       ImageIO.write(challenge, "jpg", jpegOutputStream);
@@ -68,4 +67,24 @@ public class SafeController {
     responseOutputStream.flush();
     responseOutputStream.close();
   }
+
+  @PostMapping("/checkPictureCode")
+  @ResponseBody
+  public ResultVO checkPictureCode(
+          HttpServletRequest request, @RequestBody JSONObject jsonObject){
+        String type = jsonObject.getString("type");
+        String code = jsonObject.getString("code");
+
+        //正确答案
+        String picResult = (String) request.getSession().getAttribute("pictureVerifyCode"+type);
+
+        boolean result = (picResult == null || !code.equals(picResult));
+        if (result){
+            ResultVO resultVO = ResultVOUtil.error("验证码不正确！！！");
+            return resultVO;
+        }
+
+      return ResultVOUtil.success();
+  }
+
 }
