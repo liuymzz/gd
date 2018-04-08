@@ -47,4 +47,8 @@ public class IdUtils {
     public static String getWorkAttachmentId(){
         return "workAttachment"+getUUID();
     }
+
+  public static String getFileID() {
+    return "file" + getUUID();
+  }
 }
