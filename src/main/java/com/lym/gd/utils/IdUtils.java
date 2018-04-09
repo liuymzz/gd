@@ -20,6 +20,10 @@ public class IdUtils {
         return "course"+getUUID();
     }
 
+    public static String getCourseAttachmentId(){
+        return "courseAttachment" + getUUID();
+    }
+
     public static String getMessageId(){
         return "message"+getUUID();
     }

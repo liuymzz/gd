@@ -25,11 +25,7 @@ public class Course {
      */
     private String courseTeacherId;
 
-    private String courseName;
-
     private String courseTitle;
-
-    private String courseDescription;
 
     @Column(columnDefinition = "TEXT")
     private String courseContent;
@@ -49,14 +45,9 @@ public class Course {
     private Date courseEndDate;
 
     /**
-     * 课程时间安排
-     */
-    private String courseSchoolTime;
-
-    /**
      * 1.未开始。2.进行中。3.已结束
      */
-    private String courseStatus;
+    private String courseStatus = "1";
 
 
 }
