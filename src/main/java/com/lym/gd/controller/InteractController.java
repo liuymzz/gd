@@ -1,6 +1,6 @@
 package com.lym.gd.controller;
 
-import com.lym.gd.service.FunctionService;
+import com.lym.gd.service.InteractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class InteractController {
     @Autowired
-    private FunctionService functionService;
+    private InteractService interactService;
 
     @GetMapping("/interact")
     public String interactView(String name){
@@ -23,7 +23,7 @@ public class InteractController {
     @GetMapping("/getSessionId")
     @ResponseBody
     public String getSessionId(){
-        return functionService.sessionId();
+        return interactService.sessionId();
     }
 
 }
