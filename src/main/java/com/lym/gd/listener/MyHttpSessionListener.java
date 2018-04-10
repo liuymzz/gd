@@ -1,9 +1,11 @@
 package com.lym.gd.listener;
 
+import com.lym.gd.entity.User;
 import com.lym.gd.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.annotation.WebListener;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
@@ -24,6 +26,17 @@ public class MyHttpSessionListener implements HttpSessionListener {
 
     @Override
     public void sessionDestroyed(HttpSessionEvent httpSessionEvent) {
+
+        // 会话过期后需删除对应课堂标识，表示删除该课堂
+        HttpSession httpSession = httpSessionEvent.getSession();
+
+        String sessionId = httpSession.getId();
+
+        User user = (User) httpSession.getAttribute("user");
+
+        String userId = user.getUserId();
+
+        redisService.remove(userId + "." + sessionId);
 
     }
 }

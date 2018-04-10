@@ -45,4 +45,12 @@ public class RedisService {
         stringRedisTemplate.opsForValue().set(key,value);
     }
 
+    /**
+     * 删除对应键值对
+     * @param key 键
+     */
+    public void remove(String key){
+        stringRedisTemplate.delete(key);
+    }
+
 }
