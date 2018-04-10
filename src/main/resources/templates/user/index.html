@@ -96,11 +96,27 @@
     </p>
 </div>
 
-
+<script type="application/javascript">
+    // layui 初始化模块
+    var layer;
+    layui.use('layer', function(){
+        layer = layui.layer;
+    });
+</script>
 
 <script type="application/javascript">
     function buttonOperate(url) {
-        alert(url);
+        if (url === '/interact'){
+            layer.prompt({
+                title:'请为课堂命名',
+                value:'我的课堂'
+            },function (value,index,elem) {
+                if (value !== ''){
+                    window.location.href="/interact";
+                    return false;
+                }
+            });
+        }
         return false;
 
     }
