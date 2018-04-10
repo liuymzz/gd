@@ -1,6 +1,9 @@
 package com.lym.gd.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * @author liuyaming
@@ -9,4 +12,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class FunctionService {
+    @Autowired
+    private HttpSession httpSession;
+
+    public String sessionId(){
+        return httpSession.getId();
+    }
+
+
 }
