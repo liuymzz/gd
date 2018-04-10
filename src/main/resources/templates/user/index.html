@@ -112,7 +112,7 @@
                 value:'我的课堂'
             },function (value,index,elem) {
                 if (value !== ''){
-                    window.location.href="/interact";
+                    window.location.href="/interact?name="+value;
                     return false;
                 }
             });

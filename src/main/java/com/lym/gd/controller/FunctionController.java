@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class FunctionController {
 
     @GetMapping("/interact")
-    public String interactView(){
-
+    public String interactView(String name){
         return "other/interact";
     }
 }
