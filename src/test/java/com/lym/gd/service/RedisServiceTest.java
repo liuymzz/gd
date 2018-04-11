@@ -37,4 +37,9 @@ public class RedisServiceTest {
   public void setNoTime(){
     redisService.setNoTime("a.a.a","a");
   }
+
+  @Test
+  public void deleteByPrefix(){
+    redisService.deleteByPrefix("userea09f387ab18410f81e6a4d2324538a5.6808DAB9D7422CC711FF996917D43062");
+  }
 }

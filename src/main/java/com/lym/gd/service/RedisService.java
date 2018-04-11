@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -51,6 +52,19 @@ public class RedisService {
      */
     public void remove(String key){
         stringRedisTemplate.delete(key);
+    }
+
+    /**
+     * 删除指定前缀的键值对
+     * @param prefix 前缀
+     */
+    public void deleteByPrefix(String prefix){
+        // 根据前缀获取所有匹配的上的键
+        Set<String> keys = stringRedisTemplate.keys(prefix + "*");
+
+        stringRedisTemplate.delete(keys);
+
+
     }
 
 }
