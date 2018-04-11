@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -65,6 +67,22 @@ public class RedisService {
         stringRedisTemplate.delete(keys);
 
 
+    }
+
+    /**
+     * 根据前缀查找所有能匹配的上的键值对
+     *
+     * @param prefix 前缀
+     * @return 键值对集合
+     */
+    public Map<String,String> getByPrefix(String prefix){
+        Map<String,String> result = new HashMap<>();
+
+        Set<String> keys = stringRedisTemplate.keys(prefix + "*");
+
+        keys.forEach(key->result.put(key,stringRedisTemplate.opsForValue().get(key)));
+
+        return result;
     }
 
 }

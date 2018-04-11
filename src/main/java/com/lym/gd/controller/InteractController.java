@@ -94,4 +94,16 @@ public class InteractController {
     }
 
   }
+
+    /**
+     * 获取当前用户当前会话中已存在课堂的所有talks
+     *
+     * @return map
+     */
+    @GetMapping("/talks")
+    @ResponseBody
+    public Map<String, String> getTalks() {
+
+        return interactService.getTalks();
+    }
 }

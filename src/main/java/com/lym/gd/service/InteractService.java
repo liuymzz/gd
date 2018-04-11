@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 /**
  * @author liuyaming
@@ -88,6 +89,20 @@ public class InteractService {
         // userId.sessionId.name = 课堂名称
         redisService.add(userSessionName,name,ClassEnum.LIFE_TIME.getCode());
 
+    }
+
+    /**
+     * 获取当前用户当前会话中已存在课堂的所有talks
+     * @return map
+     */
+    public Map<String,String> getTalks(){
+        String sessionId = httpSession.getId();
+        User user = (User) httpSession.getAttribute("user");
+        String userId = user.getUserId();
+
+        String userAndSessionIdAndDot = userId + "." + sessionId + ".";
+
+        return redisService.getByPrefix(userAndSessionIdAndDot);
     }
 
 
