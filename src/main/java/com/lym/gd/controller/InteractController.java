@@ -2,6 +2,7 @@ package com.lym.gd.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.lym.gd.service.InteractService;
+import com.lym.gd.utils.MatrixToImageWriter;
 import com.lym.gd.utils.ResultVOUtil;
 import com.lym.gd.vo.ResultVO;
 import org.apache.commons.lang.StringUtils;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -73,5 +75,23 @@ public class InteractController {
         return resultVO;
     }
 
+  /**
+   * 课堂二维码
+   *
+   * @param response
+   */
+  @GetMapping("/classQRCode")
+  public void QRCode(HttpServletResponse response) {
 
+    String url = "https://baidu.com";
+
+    try {
+
+      MatrixToImageWriter.createRqCode(url, 500, 500, response.getOutputStream());
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+  }
 }
