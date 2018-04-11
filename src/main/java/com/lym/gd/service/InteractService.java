@@ -2,6 +2,7 @@ package com.lym.gd.service;
 
 import com.lym.gd.entity.User;
 import com.lym.gd.enums.ClassEnum;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -64,11 +65,28 @@ public class InteractService {
         // 再获取sessionID
         String sessionId = httpSession.getId();
 
+        String userAndSessionID = user.getUserId() + "." + sessionId;
+        String userSessionName = userAndSessionID + ".name";
+
+        // 创建之前需先查看是否已有课堂，如已有，则删除
+
+        // 通过userId.sessionId查看
+        String userAndSessionIDValue =  redisService.get(userAndSessionID);
+
+        if (StringUtils.isNotEmpty(userAndSessionIDValue)){
+            // 如果存在对应的键值对，则删除所有该课堂相关内容
+            redisService.remove(userAndSessionID);
+            redisService.deleteByPrefix(userAndSessionID);
+        }
+
+
+
+
         // userId.sessionId = 1
-        redisService.add(user.getUserId() + "." + sessionId,"1",ClassEnum.LIFE_TIME.getCode());
+        redisService.add(userAndSessionID,"1",ClassEnum.LIFE_TIME.getCode());
 
         // userId.sessionId.name = 课堂名称
-        redisService.add(user.getUserId() + "." + sessionId + ".name",name,ClassEnum.LIFE_TIME.getCode());
+        redisService.add(userSessionName,name,ClassEnum.LIFE_TIME.getCode());
 
     }
 
