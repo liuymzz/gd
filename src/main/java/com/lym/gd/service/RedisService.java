@@ -85,4 +85,13 @@ public class RedisService {
         return result;
     }
 
+    /**
+     * 获取相应前缀的所有键
+     * @param prefix
+     * @return
+     */
+    public Set<String> getKeysByPrefix(String prefix){
+        return stringRedisTemplate.keys(prefix + "*");
+    }
+
 }

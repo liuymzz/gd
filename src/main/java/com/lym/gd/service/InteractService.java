@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author liuyaming
@@ -105,5 +106,29 @@ public class InteractService {
         return redisService.getByPrefix(userAndSessionIdAndDot);
     }
 
+    /**
+     * 删除指定键值对
+     * @param id
+     */
+    public void delTalk(String id){
+        redisService.remove(id);
+    }
+
+    /**
+     * 删除该课堂下所有talks
+     */
+    public void delTalks(){
+        String sessionId = httpSession.getId();
+        User user = (User) httpSession.getAttribute("user");
+        String userId = user.getUserId();
+
+        String userAndSessionIdDot = userId + "." + sessionId + ".";
+
+        Set<String> keys = redisService.getKeysByPrefix(userAndSessionIdDot);
+
+        keys.remove(userAndSessionIdDot + "name");
+
+        keys.forEach(key -> redisService.remove(key));
+    }
 
 }
