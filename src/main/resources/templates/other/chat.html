@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>我想说</title>
+
+    <link rel="stylesheet" href="http://res.layui.com/layui/dist/css/layui.mobile.css">
+    <link id="layuicss-skinlayim-mobilecss" rel="stylesheet"
+          href="http://res.layui.com/layui/dist/css/modules/layim/mobile/layim.css?v=2.0" media="all">
+    <style>
+        body .layim-title{display: none;}
+        body .layim-chat-main, body .layim-content, body .layui-layim{top: 0}
+    </style>
+</head>
+<body>
+
+
+<script src="http://res.layui.com/layui/dist/layui.js"></script>
+<script>
+    layui.config({
+        version: '20171011'
+    }).use('mobile', function () {
+        var mobile = layui.mobile
+            , layim = mobile.layim
+            , layer = mobile.layer;
+
+        layim.config({
+            brief: true,
+            init: {
+                //我的信息
+                mine: {
+                    "username": "我" //我的昵称
+                    , "id": 123 //我的ID
+                    , "avatar": "https://b-ssl.duitang.com/uploads/item/201508/04/20150804123830_NUjMC.jpeg" //我的头像
+                    , "sign": "这个人很懒，什么都没有留下"
+                }
+                //我的好友列表
+                , friend: []
+
+            }
+
+
+        });
+
+        layim.on('sendMessage', function(res){
+            var a = 1;
+            var content = res.mine.content;
+            // todo 表情的转换在服务端处理
+
+
+        });
+
+
+        //创建一个会话
+        layim.chat({
+            id: 111111
+            ,name: '许闲心'
+            ,type: 'friend' //kefu、friend、group等字符，如果是group，则创建的是群聊
+            ,avatar: 'https://b-ssl.duitang.com/uploads/item/201508/04/20150804123830_NUjMC.jpeg'
+        });
+
+    });
+</script>
+
+
+
+<script>
+    var face = {
+        'face[微笑]':'<img src="http://res.layui.com/layui/dist/images/face/0.gif">',
+        "face[嘻嘻]":'<img src="http://res.layui.com/layui/dist/images/face/1.gif">',
+        "face[哈哈]":'<img src="http://res.layui.com/layui/dist/images/face/2.gif">',
+        "face[可爱]":'<img src="http://res.layui.com/layui/dist/images/face/3.gif">',
+        "face[可怜]":'<img src="http://res.layui.com/layui/dist/images/face/4.gif">',
+        "face[挖鼻]":'<img src="http://res.layui.com/layui/dist/images/face/5.gif">',
+        "face[吃惊]":'<img src="http://res.layui.com/layui/dist/images/face/6.gif">',
+        "face[害羞]":'<img src="http://res.layui.com/layui/dist/images/face/7.gif">',
+        "face[挤眼]":'<img src="http://res.layui.com/layui/dist/images/face/8.gif">',
+        "face[闭嘴]":'<img src="http://res.layui.com/layui/dist/images/face/9.gif">',
+        "face[鄙视]":'<img src="http://res.layui.com/layui/dist/images/face/10.gif">',
+        "face[爱你]":'<img src="http://res.layui.com/layui/dist/images/face/11.gif">',
+        "face[泪]":'<img src="http://res.layui.com/layui/dist/images/face/12.gif">',
+        "face[偷笑]":'<img src="http://res.layui.com/layui/dist/images/face/13.gif">',
+        "face[亲亲]":'<img src="http://res.layui.com/layui/dist/images/face/14.gif">',
+        "face[生病]":'<img src="http://res.layui.com/layui/dist/images/face/15.gif">',
+        "face[太开心]":'<img src="http://res.layui.com/layui/dist/images/face/16.gif">',
+        "face[白眼]":'<img src="http://res.layui.com/layui/dist/images/face/17.gif">',
+        "face[右哼哼]":'<img src="http://res.layui.com/layui/dist/images/face/18.gif">',
+        "face[左哼哼]":'<img src="http://res.layui.com/layui/dist/images/face/19.gif">',
+        "face[嘘]":'<img src="http://res.layui.com/layui/dist/images/face/20.gif">',
+        "face[衰]":'<img src="http://res.layui.com/layui/dist/images/face/21.gif">',
+        "face[委屈]":'<img src="http://res.layui.com/layui/dist/images/face/22.gif">',
+        "face[吐]":'<img src="http://res.layui.com/layui/dist/images/face/23.gif">',
+        "face[哈欠]":'<img src="http://res.layui.com/layui/dist/images/face/24.gif">',
+        "face[抱抱]":'<img src="http://res.layui.com/layui/dist/images/face/25.gif">',
+        "face[怒]":'<img src="http://res.layui.com/layui/dist/images/face/26.gif">',
+        "face[疑问]":'<img src="http://res.layui.com/layui/dist/images/face/27.gif">',
+        "face[馋嘴]":'<img src="http://res.layui.com/layui/dist/images/face/28.gif">',
+        "face[拜拜]":'<img src="http://res.layui.com/layui/dist/images/face/29.gif">',
+        "face[思考]":'<img src="http://res.layui.com/layui/dist/images/face/30.gif">',
+        "face[汗]":'<img src="http://res.layui.com/layui/dist/images/face/31.gif">',
+        "face[困]":'<img src="http://res.layui.com/layui/dist/images/face/32.gif">',
+        "face[睡]":'<img src="http://res.layui.com/layui/dist/images/face/33.gif">',
+        "face[钱]":'<img src="http://res.layui.com/layui/dist/images/face/34.gif">',
+        "face[失望]":'<img src="http://res.layui.com/layui/dist/images/face/35.gif">',
+        "face[酷]":'<img src="http://res.layui.com/layui/dist/images/face/36.gif">',
+        "face[色]":'<img src="http://res.layui.com/layui/dist/images/face/37.gif">',
+        "face[哼]":'<img src="http://res.layui.com/layui/dist/images/face/38.gif">',
+        "face[鼓掌]":'<img src="http://res.layui.com/layui/dist/images/face/39.gif">',
+        "face[晕]":'<img src="http://res.layui.com/layui/dist/images/face/40.gif">',
+        "face[悲伤]":'<img src="http://res.layui.com/layui/dist/images/face/41.gif">',
+        "face[抓狂]":'<img src="http://res.layui.com/layui/dist/images/face/42.gif">',
+        "face[黑线]":'<img src="http://res.layui.com/layui/dist/images/face/43.gif">',
+        "face[阴险]":'<img src="http://res.layui.com/layui/dist/images/face/44.gif">',
+        "face[怒骂]":'<img src="http://res.layui.com/layui/dist/images/face/45.gif">',
+        "face[互粉]":'<img src="http://res.layui.com/layui/dist/images/face/46.gif">',
+        "face[心]":'<img src="http://res.layui.com/layui/dist/images/face/47.gif">',
+        "face[伤心]":'<img src="http://res.layui.com/layui/dist/images/face/48.gif">',
+        "face[猪头]":'<img src="http://res.layui.com/layui/dist/images/face/49.gif">',
+        "face[熊猫]":'<img src="http://res.layui.com/layui/dist/images/face/50.gif">',
+        "face[兔子]":'<img src="http://res.layui.com/layui/dist/images/face/51.gif">',
+        "face[ok]":'<img src="http://res.layui.com/layui/dist/images/face/52.gif">',
+        "face[耶]":'<img src="http://res.layui.com/layui/dist/images/face/53.gif">',
+        "face[good]":'<img src="http://res.layui.com/layui/dist/images/face/54.gif">',
+        "face[NO]":'<img src="http://res.layui.com/layui/dist/images/face/55.gif">',
+        "face[赞]":'<img src="http://res.layui.com/layui/dist/images/face/56.gif">',
+        "face[来]":'<img src="http://res.layui.com/layui/dist/images/face/57.gif">',
+        "face[弱]":'<img src="http://res.layui.com/layui/dist/images/face/58.gif">',
+        "face[草泥马]":'<img src="http://res.layui.com/layui/dist/images/face/59.gif">',
+        "face[神马]":'<img src="http://res.layui.com/layui/dist/images/face/60.gif">',
+        "face[囧]":'<img src="http://res.layui.com/layui/dist/images/face/61.gif">',
+        "face[浮云]":'<img src="http://res.layui.com/layui/dist/images/face/62.gif">',
+        "face[给力]":'<img src="http://res.layui.com/layui/dist/images/face/63.gif">',
+        "face[围观]":'<img src="http://res.layui.com/layui/dist/images/face/64.gif">',
+        "face[威武]":'<img src="http://res.layui.com/layui/dist/images/face/65.gif">',
+        "face[奥特曼]":'<img src="http://res.layui.com/layui/dist/images/face/66.gif">',
+        "face[礼物]":'<img src="http://res.layui.com/layui/dist/images/face/67.gif">',
+        "face[钟]":'<img src="http://res.layui.com/layui/dist/images/face/68.gif">',
+        "face[话筒]":'<img src="http://res.layui.com/layui/dist/images/face/69.gif">',
+        "face[蜡烛]":'<img src="http://res.layui.com/layui/dist/images/face/70.gif">',
+        "face[蛋糕]":'<img src="http://res.layui.com/layui/dist/images/face/71.gif">',
+    };
+</script>
+</body>
+</html>

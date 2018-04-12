@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
@@ -78,7 +79,11 @@ public class InteractController {
    * @param response
    */
   @GetMapping("/classQRCode")
-  public void QRCode(HttpServletResponse response) {
+  public void QRCode(HttpServletRequest request, HttpServletResponse response) {
+
+      String servletPath = request.getServletPath();
+      String contextPath = request.getRemoteHost();
+
 
     String url = "https://baidu.com";
 
