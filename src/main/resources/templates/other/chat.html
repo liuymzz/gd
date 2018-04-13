@@ -1,41 +1,1 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="../../res/layui/css/layui.css">
-    <link rel="stylesheet" href="../../res/css/global.css">
-
-</head>
-<body>
-<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
-<script src="../../res/layui/lay/modules/layer.js"></script>
-<script type="application/javascript">
-
-    function prompt() {
-        layer.open({
-            closeBtn: 0,
-            title: '你想说啥？',
-            content: '<input id="talk" class="layui-input"/>',
-            yes: function (index,layero) {
-                var talk = $("#talk").val();
-
-
-                if (talk === '' || talk == null){
-                    return false;
-                }
-
-                layer.close(index);
-                prompt();
-            }
-
-        });
-    }
-
-</script>
-
-<script type="application/javascript">
-    prompt();
-</script>
-</body>
-</html>
+<!DOCTYPE html><html><head>    <meta charset="UTF-8">    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">    <link rel="stylesheet" href="../../res/layui/css/layui.css">    <link rel="stylesheet" href="../../res/css/global.css"></head><body><script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script><script src="../../res/layui/lay/modules/layer.js"></script><script type="application/javascript">    function prompt() {        layer.open({            closeBtn: 0,            title: '你想说啥？',            content: '<input id="talk" class="layui-input"/>',            yes: function (index,layero) {                var talk = $("#talk").val();                if (talk === '' || talk == null){                    return false;                }                layer.close(index);                prompt();            }        });    }</script><script type="application/javascript">    prompt();</script></body></html>
