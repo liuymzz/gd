@@ -30,8 +30,14 @@ public class MyHttpSessionListener implements HttpSessionListener {
 
         // 会话过期后需删除对应课堂标识，表示删除该课堂
         HttpSession httpSession = httpSessionEvent.getSession();
+        User user = (User) httpSession.getAttribute("user");
 
-        redisService.remove(IdUtils.getUserAndSessionId(httpSession));
+        if (user != null) {
+            String userAndSessionId = IdUtils.getUserAndSessionId(httpSession);
+            redisService.remove(userAndSessionId);
+            redisService.deleteByPrefix(userAndSessionId);
+
+        }
 
     }
 }
