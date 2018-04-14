@@ -1,10 +1,8 @@
 package com.lym.gd.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.lym.gd.entity.User;
 import com.lym.gd.service.InteractService;
 import com.lym.gd.utils.IdUtils;
-import com.lym.gd.utils.MatrixToImageWriter;
 import com.lym.gd.utils.ResultVOUtil;
 import com.lym.gd.vo.ResultVO;
 import net.glxn.qrgen.core.image.ImageType;
@@ -16,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.ByteArrayOutputStream;
@@ -152,6 +149,17 @@ public class InteractController {
     public ResultVO delTalks(){
 
         interactService.delTalks();
+
+        return ResultVOUtil.success();
+    }
+
+    @PostMapping("/talk")
+    @ResponseBody
+    public ResultVO saveTalk(@RequestBody JSONObject jsonObject){
+
+        interactService.saveTalk(jsonObject);
+
+        System.out.println(jsonObject.toJSONString());
 
         return ResultVOUtil.success();
     }

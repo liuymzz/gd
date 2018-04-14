@@ -1,5 +1,6 @@
 package com.lym.gd.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.lym.gd.entity.User;
 import com.lym.gd.enums.ClassEnum;
 import com.lym.gd.utils.IdUtils;
@@ -102,6 +103,17 @@ public class InteractService {
         keys.remove(userAndSessionIdDot + "name");
 
         keys.forEach(key -> redisService.remove(key));
+    }
+
+    /**
+     * 保存talk至Redis
+     * @param jsonObject
+     */
+    public void saveTalk(JSONObject jsonObject){
+        String id = jsonObject.getString("id");
+        String content = jsonObject.getString("content");
+
+        redisService.add(id,content,ClassEnum.LIFE_TIME.getCode());
     }
 
 }
