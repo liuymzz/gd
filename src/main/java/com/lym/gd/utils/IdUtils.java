@@ -1,6 +1,9 @@
 package com.lym.gd.utils;
 
 
+import com.lym.gd.entity.User;
+
+import javax.servlet.http.HttpSession;
 import java.util.UUID;
 
 /**
@@ -54,5 +57,20 @@ public class IdUtils {
 
   public static String getFileID() {
     return "file" + getUUID();
+  }
+
+  public static String getUserAndSessionId(HttpSession session){
+
+      User user = (User) session.getAttribute("user");
+
+      String userId = user.getUserId();
+
+      String sessionId = session.getId();
+
+      return userId + "##" + sessionId;
+  }
+
+  public static String getUserAndSessionIdAndName(HttpSession session){
+        return getUserAndSessionId(session) + "##name";
   }
 }

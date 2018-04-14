@@ -2,6 +2,7 @@ package com.lym.gd.service;
 
 import com.lym.gd.entity.User;
 import com.lym.gd.enums.ClassEnum;
+import com.lym.gd.utils.IdUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,13 +30,7 @@ public class InteractService {
      * @return 任意字符串，如果为空或者是null，则说明没有对应的课堂
      */
     public String existClass(){
-        // 先获取登录用户
-        User user = (User) httpSession.getAttribute("user");
-
-        // 再获取sessionID
-        String sessionId = httpSession.getId();
-
-        return redisService.get(user.getUserId() + "." + sessionId);
+        return redisService.get(IdUtils.getUserAndSessionId(httpSession));
     }
 
     /**
@@ -43,15 +38,7 @@ public class InteractService {
      * @return 已存在课堂名称
      */
     public String getClassName(){
-        // 先获取登录用户
-        User user = (User) httpSession.getAttribute("user");
-
-        // 再获取sessionID
-        String sessionId = httpSession.getId();
-
-        String key = user.getUserId() + "." + sessionId+".name";
-
-        return redisService.get(key);
+        return redisService.get(IdUtils.getUserAndSessionIdAndName(httpSession));
     }
 
     /**
@@ -61,14 +48,8 @@ public class InteractService {
      * @param name 课堂名称
      */
     public void startClass(String name){
-        // 先获取登录用户
-        User user = (User) httpSession.getAttribute("user");
-
-        // 再获取sessionID
-        String sessionId = httpSession.getId();
-
-        String userAndSessionID = user.getUserId() + "." + sessionId;
-        String userSessionName = userAndSessionID + ".name";
+        String userAndSessionID = IdUtils.getUserAndSessionId(httpSession);
+        String userSessionName = IdUtils.getUserAndSessionIdAndName(httpSession);
 
         // 创建之前需先查看是否已有课堂，如已有，则删除
 
@@ -97,11 +78,7 @@ public class InteractService {
      * @return map
      */
     public Map<String,String> getTalks(){
-        String sessionId = httpSession.getId();
-        User user = (User) httpSession.getAttribute("user");
-        String userId = user.getUserId();
-
-        String userAndSessionIdAndDot = userId + "." + sessionId + ".";
+        String userAndSessionIdAndDot = IdUtils.getUserAndSessionId(httpSession) + "##";
 
         return redisService.getByPrefix(userAndSessionIdAndDot);
     }
@@ -118,11 +95,7 @@ public class InteractService {
      * 删除该课堂下所有talks
      */
     public void delTalks(){
-        String sessionId = httpSession.getId();
-        User user = (User) httpSession.getAttribute("user");
-        String userId = user.getUserId();
-
-        String userAndSessionIdDot = userId + "." + sessionId + ".";
+        String userAndSessionIdDot = IdUtils.getUserAndSessionId(httpSession) + "##";
 
         Set<String> keys = redisService.getKeysByPrefix(userAndSessionIdDot);
 
