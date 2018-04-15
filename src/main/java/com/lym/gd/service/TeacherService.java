@@ -4,7 +4,6 @@ import com.lym.gd.entity.Course;
 import com.lym.gd.entity.CourseAttachment;
 import com.lym.gd.repository.CourseAttachmentRepository;
 import com.lym.gd.repository.CourseRepository;
-import com.lym.gd.utils.IdUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +27,6 @@ public class TeacherService {
 
     if (StringUtils.isNotEmpty(courseAttachment.getCourseAttachmentId())) {
 
-      int a = 1 / 0;
       courseAttachmentRepository.save(courseAttachment);
     }
 
