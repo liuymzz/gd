@@ -5,6 +5,7 @@ import com.lym.gd.service.InteractService;
 import com.lym.gd.utils.IdUtils;
 import com.lym.gd.utils.ResultVOUtil;
 import com.lym.gd.vo.ResultVO;
+import lombok.extern.slf4j.Slf4j;
 import net.glxn.qrgen.core.image.ImageType;
 import net.glxn.qrgen.javase.QRCode;
 import org.apache.commons.lang.StringUtils;
@@ -27,6 +28,7 @@ import java.util.Map;
  * @date 2018/4/10 下午3:32
  */
 @Controller
+@Slf4j
 public class InteractController {
     @Autowired
     private InteractService interactService;
@@ -159,7 +161,7 @@ public class InteractController {
 
         interactService.saveTalk(jsonObject);
 
-        System.out.println(jsonObject.toJSONString());
+        log.info("将TALK存储至Redis中"+jsonObject.toJSONString());
 
         return ResultVOUtil.success();
     }
