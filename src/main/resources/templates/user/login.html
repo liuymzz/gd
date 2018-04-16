@@ -8,6 +8,8 @@
     <meta name="description" content="Fly社区是模块化前端UI框架Layui的官网社区，致力于为web开发提供强劲动力">
     <link rel="stylesheet" href="../../res/layui/css/layui.css">
     <link rel="stylesheet" href="../../res/css/global.css">
+    <script src="../../res/js/jquery.js"></script>
+    <script src="../../res/layui/layui.js"></script>
 </head>
 <body>
 
@@ -23,18 +25,18 @@
             <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
                 <div class="layui-tab-item layui-show">
                     <div class="layui-form layui-form-pane">
-                        <form th:action="@{/loginAction}" method="post">
+                        <form >
                             <div class="layui-form-item">
-                                <label for="L_email" class="layui-form-label">邮箱</label>
+                                <label for="L_email" class="layui-form-label">手机</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" id="L_email" name="email" required lay-verify="required"
+                                    <input type="text" id="L_email" name="phone" required lay-verify="required"
                                            autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label for="L_pass" class="layui-form-label">密码</label>
                                 <div class="layui-input-inline">
-                                    <input type="password" id="L_pass" name="pass" required lay-verify="required"
+                                    <input type="password" id="L_pass" name="password" required lay-verify="required"
                                            autocomplete="off" class="layui-input">
                                 </div>
                             </div>
@@ -50,18 +52,12 @@
                             </div>
                             <div class="layui-form-item">
                                 <!--<button class="layui-btn" lay-filter="*" lay-submit>立即登录</button>-->
-                                <button class="layui-btn" lay-filter="*">立即登录</button>
+                                <button class="layui-btn" lay-submit lay-filter="loginAction">立即登录</button>
                                 <span style="padding-left:20px;">
                   <a href="forget.html">忘记密码？</a>
                 </span>
                             </div>
-                            <div class="layui-form-item fly-form-app">
-                                <span>或者使用社交账号登入</span>
-                                <a href="" onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})"
-                                   class="iconfont icon-qq" title="QQ登入"></a>
-                                <a href="" onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})"
-                                   class="iconfont icon-weibo" title="微博登入"></a>
-                            </div>
+
                         </form>
                     </div>
                 </div>
@@ -80,22 +76,38 @@
     </p>
 </div>
 
-<script src="../../res/layui/layui.js"></script>
-<script>
-    layui.cache.page = 'user';
-    layui.cache.user = {
-        username: '游客'
-        , uid: -1
-        , avatar: '../../res/images/avatar/00.jpg'
-        , experience: 83
-        , sex: '男'
-    };
-    layui.config({
-        version: "3.0.0"
-        , base: '../../res/mods/'
-    }).extend({
-        fly: 'index'
-    }).use('fly');
+<script type="application/javascript" src="../../res/layui/lay/modules/layer.js"></script>
+<script type="application/javascript">
+
+    layui.use('form', function(){
+        var form = layui.form;
+
+        form.on('submit(loginAction)', function(data){
+            console.log(data.elem) //被执行事件的元素DOM对象，一般为button对象
+            console.log(data.form) //被执行提交的form对象，一般在存在form标签时才会返回
+            console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
+
+            $.ajax({
+                type: "post",
+                url: "/loginAction",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                data:JSON.stringify(data.field),
+                success: function (data) {
+                    if (data.code != 0){
+                        layer.alert(data.message);
+                    } else {
+                        window.location.href="/";
+                    }
+                }
+            });
+
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+
+    });
+
+
 </script>
 
 </body>

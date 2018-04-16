@@ -25,11 +25,15 @@ public class User {
 
     private String userPhone;
 
+    private String userPassword;
+
+    public User(){}
+
     /**
      * 用户头像地址
      */
     @Column(length = 500)
-    private String userIcon;
+    private String userIcon = "http://www.qqzhi.com/uploadpic/2014-09-06/195035496.jpg";
 
     /**
      * 0.女生。1.男生
