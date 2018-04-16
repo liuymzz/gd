@@ -2,7 +2,6 @@ package com.lym.gd.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.lym.gd.DTO.CourseAndUserDTO;
-import com.lym.gd.entity.Course;
 import com.lym.gd.enums.CourseEnum;
 import com.lym.gd.service.CourseService;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +28,7 @@ public class CourseController {
 
         // 获取未开始的课程
         List<CourseAndUserDTO> courseAndUserDTOS = courseService.findCourseByCourseStatus(CourseEnum.No_START.getStatus());
-        model.addAttribute("courses",courseAndUserDTOS);
+        model.addAttribute("courseAndUserDTOS",courseAndUserDTOS);
 
         System.out.println(JSONObject.toJSONString(courseAndUserDTOS));
 

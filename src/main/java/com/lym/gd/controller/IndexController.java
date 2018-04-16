@@ -43,9 +43,6 @@ public class IndexController {
   @ResponseBody
   public ResultVO loginAction(@RequestBody JSONObject jsonObject, HttpSession session) {
     ResultVO resultVO = ResultVOUtil.success();
-    System.out.println(JSONObject.toJSONString(jsonObject));
-
-    System.out.println(MD5Utils.MD5(jsonObject.getString("password")));
 
     User user = indexService.loginAction(jsonObject);
 

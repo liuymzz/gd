@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+
 /**
  * @author liuyaming
  * @date 2018/4/8 下午8:02
@@ -22,6 +24,8 @@ public class TeacherService {
 
   @Transactional
   public boolean addCourse(Course course, CourseAttachment courseAttachment) {
+
+    course.setCourseCreateDate(new Date());
 
     courseRepository.save(course);
 
