@@ -117,6 +117,13 @@
     //富文本编辑器
     layui.use('layedit', function(){
         layedit = layui.layedit;
+
+        layedit.set({
+            uploadImage: {
+                url: 'uploadImg'
+            }
+        });
+
         layeditIndex = layedit.build('L_content'); //建立编辑器
     });
 

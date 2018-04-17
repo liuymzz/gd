@@ -57,4 +57,38 @@ public class FileController {
 
     return result;
   }
+
+  @PostMapping("/uploadImg")
+  @ResponseBody
+  public Map uploadImg(@RequestParam("file") MultipartFile file){
+    Map map = new HashMap(16);
+    OSS oss = new OSSClient(endPoint, accessKeyID, accessKeySecret);
+
+    try {
+      // OSS 中文件名
+      String fileName = IdUtils.getFileID() + "###" + file.getOriginalFilename();
+      // 上传文件
+      oss.putObject(bucketName, fileName, file.getInputStream());
+
+      // 文件上传后生成的URL
+      String URL = "https://" + bucketName + "." + endPoint + "/" + fileName;
+      URL = URL.replace("#","%23");
+      map.put("code","0");
+      map.put("msg","success");
+
+      Map data = new HashMap();
+      data.put("src",URL);
+
+      map.put("data",data);
+
+    } catch (Exception e) {
+      map.put("code","1");
+      map.put("code","上传失败，请重新登录或稍后操作");
+      e.printStackTrace();
+    } finally {
+      oss.shutdown();
+    }
+
+    return map;
+  }
 }
