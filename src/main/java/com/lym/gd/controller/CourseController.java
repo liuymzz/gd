@@ -2,6 +2,7 @@ package com.lym.gd.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.lym.gd.DTO.CourseAndUserDTO;
+import com.lym.gd.DTO.CourseDetailDTO;
 import com.lym.gd.enums.CourseEnum;
 import com.lym.gd.service.CourseService;
 import lombok.extern.slf4j.Slf4j;
@@ -38,8 +39,10 @@ public class CourseController {
     }
 
     @GetMapping("/courseDetail/{id}")
-    public String courseDetail(@PathVariable("id") String courseId){
+    public String courseDetail(@PathVariable("id") String courseId,Model model){
 
+        CourseDetailDTO courseDetailDTO = courseService.getCourseDetail(courseId);
+        model.addAttribute("courseDetailDTO",courseDetailDTO);
 
         return "other/courseDetail";
     }
