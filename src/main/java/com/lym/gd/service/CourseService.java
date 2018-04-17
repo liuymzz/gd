@@ -58,7 +58,9 @@ public class CourseService {
         CourseAttachment courseAttachment = courseAttachmentRepository.findByCourseId(courseId);
 
         // 存在数据库中的文件url中存在有“#”特殊符号，需要进行转义
-        courseAttachment.setCourseAttachmentUrl(courseAttachment.getCourseAttachmentUrl().replace("#","%23"));
+        if (courseAttachment != null) {
+            courseAttachment.setCourseAttachmentUrl(courseAttachment.getCourseAttachmentUrl().replace("#", "%23"));
+        }
 
         courseDetailDTO.setCourse(course);
         courseDetailDTO.setUser(user);

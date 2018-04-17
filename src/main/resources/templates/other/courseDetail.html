@@ -113,7 +113,7 @@
                 <div class="detail-about-reply">
                     附件：
                 </div>
-                <div class="detail-about">
+                <div th:if="${courseDetailDTO.courseAttachment ne null}" class="detail-about">
                     <a th:href="${courseDetailDTO.courseAttachment.courseAttachmentUrl}" th:utext="${courseDetailDTO.courseAttachment.courseAttachmentName}"></a>
                 </div>
             </div>

@@ -40,7 +40,7 @@
 
               <div class="layui-form-item layui-form-text">
                 <div class="layui-input-block">
-                  <textarea id="L_content" name="courseContent" required lay-verify="required" placeholder="详细描述"
+                  <textarea id="L_content" name="courseContent" placeholder="详细描述"
                             class="layui-textarea fly-editor" style="height: 260px;"></textarea>
                 </div>
               </div>
@@ -111,6 +111,17 @@
 
 
 <script>
+
+  var layedit;
+  var layeditIndex;
+    //富文本编辑器
+    layui.use('layedit', function(){
+        layedit = layui.layedit;
+        layeditIndex = layedit.build('L_content'); //建立编辑器
+    });
+
+
+    <!--表单控件-->
     layui.use('form', function () {
         var form = layui.form;
 
@@ -141,6 +152,7 @@
                     return result.message;
                 }
 
+                layedit.sync(layeditIndex);
             }
         });
 
@@ -163,7 +175,7 @@
 
     });
 
-
+    //上传组件
     layui.use('upload', function(){
         var upload = layui.upload;
 
@@ -185,6 +197,7 @@
         });
     });
 
+    //日期组件
     layui.use('laydate', function(){
         var laydate = layui.laydate;
 
