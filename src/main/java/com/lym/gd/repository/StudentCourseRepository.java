@@ -8,4 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @date 2018/3/11 下午6:12
  */
 public interface StudentCourseRepository extends JpaRepository<StudentCourse,String> {
+
+    StudentCourse findByCourseIdAndStudentId(String courseId,String studentId);
+
 }

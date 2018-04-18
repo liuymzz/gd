@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="../../res/layui/css/layui.css">
     <link rel="stylesheet" href="../../res/css/global.css">
+    <script src="../../res/js/jquery.js"></script>
 </head>
 <body>
 
@@ -111,6 +112,9 @@
                 </div>
 
                 <div class="detail-about-reply">
+                    <button id="selectCourse" onclick="selectCourse()" th:onclick="${'selectCourse(''' + courseDetailDTO.course.courseId + ''')'}" class="layui-btn layui-btn-lg">我要上这堂课</button>
+                    <br>
+                    <br>
                     附件：
                 </div>
                 <div th:if="${courseDetailDTO.courseAttachment ne null}" class="detail-about">
@@ -240,6 +244,34 @@
 </div>
 
 <script src="../../res/layui/layui.js"></script>
+
+<script type="application/javascript">
+
+    var layer;
+    layui.use('layer', function(){
+        layer = layui.layer;
+    });
+
+    function selectCourse(courseId) {
+        var data = {};
+        data.courseId = courseId;
+        $.ajax({
+            type: "POST",
+            url: "/selectCourse",
+            contentType: "application/json;charset=UTF-8",
+            async:false,
+            data: JSON.stringify(data),
+            dataType:"json",
+            success: function (data) {
+                layer.msg(data.message);
+                $("#selectCourse").addClass('layui-btn-disabled');
+
+            }
+        });
+    }
+
+</script>
+
 <script>
     layui.cache.page = 'jie';
     layui.cache.user = {

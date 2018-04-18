@@ -73,4 +73,14 @@ public class IdUtils {
   public static String getUserAndSessionIdAndName(HttpSession session){
         return getUserAndSessionId(session) + "##name";
   }
+
+    /**
+     * 获取当前登录用户的id
+     * @param httpSession
+     * @return
+     */
+  public static String getUserId(HttpSession httpSession){
+        User user = (User) httpSession.getAttribute("user");
+        return user.getUserId();
+  }
 }

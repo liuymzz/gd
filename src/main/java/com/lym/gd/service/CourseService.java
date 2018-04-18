@@ -1,17 +1,23 @@
 package com.lym.gd.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.lym.gd.DTO.CourseAndUserDTO;
 import com.lym.gd.DTO.CourseDetailDTO;
 import com.lym.gd.entity.Course;
 import com.lym.gd.entity.CourseAttachment;
+import com.lym.gd.entity.StudentCourse;
 import com.lym.gd.entity.User;
 import com.lym.gd.repository.CourseAttachmentRepository;
 import com.lym.gd.repository.CourseRepository;
+import com.lym.gd.repository.StudentCourseRepository;
 import com.lym.gd.repository.UserRepository;
+import com.lym.gd.utils.IdUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,6 +35,17 @@ public class CourseService {
     @Autowired
     private CourseAttachmentRepository courseAttachmentRepository;
 
+    @Autowired
+    private StudentCourseRepository studentCourseRepository;
+
+    @Autowired
+    private HttpSession httpSession;
+
+    /**
+     * 根据课程状态查找
+     * @param status
+     * @return
+     */
     public List<CourseAndUserDTO> findCourseByCourseStatus(String status) {
         List<CourseAndUserDTO> courseAndUserDTOS = new ArrayList<>();
 
@@ -69,5 +86,29 @@ public class CourseService {
         return courseDetailDTO;
     }
 
+    /**
+     * 根据给定的课程id匹配当前登录用户进行选课
+     * @param courseId
+     */
+    public void selectCourse(String courseId){
+        String userId = IdUtils.getUserId(httpSession);
 
+        StudentCourse studentCourse =
+                new StudentCourse.
+                        Builder()
+                        .studentCourseId(IdUtils.getStudentCourseId())
+                        .courseId(courseId)
+                        .courseChooseDate(new Date())
+                        .studentId(userId)
+                        .courseStatus("1")
+                        .build();
+
+        studentCourseRepository.save(studentCourse);
+    }
+
+    public StudentCourse findStudentCourseByCourseIdAndUserId(String courseId) {
+        String userId = IdUtils.getUserId(httpSession);
+
+        return studentCourseRepository.findByCourseIdAndStudentId(courseId,userId);
+    }
 }
