@@ -28,4 +28,13 @@ public interface CourseRepository extends JpaRepository<Course,String>{
      */
     Course findByCourseId(String courseId);
 
+    /**
+     * 根据课程讲师以及状态获取
+     *
+     * @param courseTeacherId
+     * @param courseStatus
+     * @return
+     */
+    List<Course> findCoursesByCourseTeacherIdAndCourseStatus(String courseTeacherId,String courseStatus);
+
 }

@@ -7,6 +7,7 @@ import com.lym.gd.entity.Course;
 import com.lym.gd.entity.CourseAttachment;
 import com.lym.gd.entity.StudentCourse;
 import com.lym.gd.entity.User;
+import com.lym.gd.enums.CourseEnum;
 import com.lym.gd.repository.CourseAttachmentRepository;
 import com.lym.gd.repository.CourseRepository;
 import com.lym.gd.repository.StudentCourseRepository;
@@ -106,9 +107,27 @@ public class CourseService {
         studentCourseRepository.save(studentCourse);
     }
 
+    /**
+     * 根据courseId查找当前用户是否已选该门课程
+     *
+     * @param courseId
+     * @return 如果已选则返回course对象，否则是空
+     */
     public StudentCourse findStudentCourseByCourseIdAndUserId(String courseId) {
         String userId = IdUtils.getUserId(httpSession);
 
         return studentCourseRepository.findByCourseIdAndStudentId(courseId,userId);
     }
+
+    /**
+     * 获取当前用户已经开始并且未结课的所有课程名称
+     * @return
+     */
+    public List<Course> getStartAndNotFinishCourse() {
+
+        String userId = IdUtils.getUserId(httpSession);
+
+        return courseRepository.findCoursesByCourseTeacherIdAndCourseStatus(userId,CourseEnum.STARTING.getStatus());
+    }
+
 }

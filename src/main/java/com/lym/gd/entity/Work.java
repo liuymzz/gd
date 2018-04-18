@@ -5,9 +5,10 @@ import lombok.Data;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Date;
 
 /**
- * 作业
+ * 老师布置的作业
  *
  * @author liuyaming
  * @date 2018/3/11 下午6:12
@@ -19,15 +20,12 @@ public class Work {
     @Id
     private String workId;
 
+    private String workTitle;
+
     /**
      * 作业对应课程的id🆔
      */
     private String courseId;
-
-    /**
-     * 👨‍🎓学生的ID，即谁提交了该作业
-     */
-    private String studentId;
 
     /**
      * 作业内容
@@ -40,4 +38,6 @@ public class Work {
      * 1.未阅。2.已阅
      */
     private String workStatus;
+
+    private Date workCreateDate;
 }
