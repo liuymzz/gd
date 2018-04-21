@@ -35,7 +35,7 @@ public class Work {
 
     /**
      * 作业状态
-     * 1.未阅。2.已阅
+     * 1.正常。2.已过期
      */
     private String workStatus;
 

@@ -9,8 +9,8 @@ import lombok.Getter;
 @Getter
 public enum WorkEnum {
 
-    NOT_READ("1","未阅"),
-    READED("2","已阅")
+    NORMAL("1","正常"),
+    EXPIRED("2","已过期")
     ;
 
     private String code;

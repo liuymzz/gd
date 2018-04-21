@@ -36,7 +36,7 @@ public class WorkService {
         work.setWorkContent(jsonObject.getString("workContent"));
         work.setWorkTitle(jsonObject.getString("workTitle"));
         work.setWorkCreateDate(new Date());
-        work.setWorkStatus(WorkEnum.NOT_READ.getCode());
+        work.setWorkStatus(WorkEnum.NORMAL.getCode());
 
 //        如果这个属性不为空则表示有上传文件
         if (StringUtils.isNotEmpty(jsonObject.getString("workAttachmentUrl"))){
