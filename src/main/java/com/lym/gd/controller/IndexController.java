@@ -50,6 +50,8 @@ public class IndexController {
       resultVO = ResultVOUtil.error("登录失败，请检查账号密码");
     } else {
       session.setAttribute("user", user);
+//      如果用户登录，就设置session过期时间为两个小时，这在大部分情况下是两小节课的时间
+      session.setMaxInactiveInterval(60 * 60 * 2);
     }
 
 
