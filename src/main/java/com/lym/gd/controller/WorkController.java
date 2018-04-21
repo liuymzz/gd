@@ -54,4 +54,11 @@ public class WorkController {
         return  resultVO;
     }
 
+    @GetMapping("/work")
+    public String workView(){
+
+
+        return "other/work";
+    }
+
 }
