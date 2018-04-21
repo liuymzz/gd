@@ -60,8 +60,7 @@ public class WorkController {
 
         List<UserWorkCourseDTO> userWorkCourseDTOS = workService.getWorkByUser();
 
-        System.out.println(userWorkCourseDTOS);
-
+        model.addAttribute("userWorkCourseDTOs",userWorkCourseDTOS);
 
         return "other/work";
     }

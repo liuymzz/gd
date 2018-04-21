@@ -15,19 +15,20 @@
         <div class="layui-col-md8">
             <div class="fly-panel" style="margin-bottom: 0;">
                 <ul class="fly-list">
-                    <li th:each="courseAndUserDTO:${courseAndUserDTOS}">
+                    <li th:each="userWorkCourseDTO:${userWorkCourseDTOs}">
                         <a href="user/home.html" class="fly-avatar">
-                            <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" th:src="${courseAndUserDTO.user.userIcon}" alt="贤心">
+                            <img src="" th:src="${userWorkCourseDTO.user.userIcon}" alt="贤心">
                         </a>
                         <h2>
                             <a class="layui-badge">分享</a>
-                            <a th:href="${'/courseDetail/' + courseAndUserDTO.course.courseId}" href="detail.html" th:utext="${courseAndUserDTO.course.courseTitle}">课程标题</a>
+                            <a th:href="${'/workDetail/' + userWorkCourseDTO.work.workId}" href=""
+                               th:utext="${userWorkCourseDTO.work.workTitle + '(' + userWorkCourseDTO.course.courseTitle + ')'}">课程标题</a>
                         </h2>
                         <div class="fly-list-info">
                             <a href="user/home.html" link>
-                                <cite th:utext="${courseAndUserDTO.user.userName + '老师'}">教师名称</cite>
+                                <cite th:utext="${userWorkCourseDTO.user.userName + '老师'}">教师名称</cite>
                             </a>
-                            <span th:utext="${courseAndUserDTO.course.courseCreateDate}">时间</span>
+                            <span th:utext="${userWorkCourseDTO.work.workCreateDate}">时间</span>
 
                             <!--<span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻"><i class="iconfont icon-kiss"></i> 60</span>-->
                             <span class="fly-list-nums">
