@@ -31,7 +31,7 @@ public class StudentCourse {
 
     /**
      * 选课状态
-     * 1.正常。2取消(未选)
+     * 1.正常。2取消(未选、过期)
      */
     private String courseStatus;
 

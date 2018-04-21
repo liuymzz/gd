@@ -1,6 +1,7 @@
 package com.lym.gd.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.lym.gd.DTO.UserWorkCourseDTO;
 import com.lym.gd.entity.Course;
 import com.lym.gd.service.CourseService;
 import com.lym.gd.service.WorkService;
@@ -55,7 +56,11 @@ public class WorkController {
     }
 
     @GetMapping("/work")
-    public String workView(){
+    public String workView(Model model){
+
+        List<UserWorkCourseDTO> userWorkCourseDTOS = workService.getWorkByUser();
+
+        System.out.println(userWorkCourseDTOS);
 
 
         return "other/work";
