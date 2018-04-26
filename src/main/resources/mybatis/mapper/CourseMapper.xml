@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lym.gd.mapper.CourseMapper">
+
+    <resultMap id="courseAndUserDTO" type="com.lym.gd.DTO.CourseAndUserDTO">
+        <result property="user.userIcon" column="user_icon" />
+        <result property="user.userName" column="user_name" />
+
+        <result property="course.courseId" column="course_id" />
+        <result property="course.courseTitle" column="course_title" />
+        <result property="course.courseCreateDate" column="course_create_date" />
+
+    </resultMap>
+
+    <select id="findCourseAndUserByCourseStatus" resultMap="courseAndUserDTO">
+        select
+            u.user_icon,u.user_name,
+            c.course_id,c.course_title,c.course_create_date
+        from course c
+        left join user u on c.course_teacher_id = u.user_id
+    </select>
+
+</mapper>

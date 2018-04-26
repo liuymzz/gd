@@ -1,6 +1,7 @@
 package com.lym.gd.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageInfo;
 import com.lym.gd.DTO.CourseAndUserDTO;
 import com.lym.gd.DTO.CourseDetailDTO;
 import com.lym.gd.entity.StudentCourse;
@@ -33,14 +34,11 @@ public class CourseController {
      * @return
      */
     @GetMapping("/lesson")
-    public String courseView(Model model){
+    public String courseView(Model model,@RequestParam(defaultValue = "1") Integer page,@RequestParam(defaultValue = "10") Integer pageSize){
 
         // 获取未开始的课程
-        List<CourseAndUserDTO> courseAndUserDTOS = courseService.findCourseByCourseStatus(CourseEnum.No_START.getStatus());
-        model.addAttribute("courseAndUserDTOS",courseAndUserDTOS);
-
-        System.out.println(JSONObject.toJSONString(courseAndUserDTOS));
-
+        PageInfo<CourseAndUserDTO> pageInfo = courseService.findCourseByCourseStatus(CourseEnum.No_START.getStatus(),page,pageSize);
+        model.addAttribute("pageInfo",pageInfo);
 
         return "other/course";
     }

@@ -1,6 +1,7 @@
 package com.lym.gd.service;
 
-import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.lym.gd.DTO.CourseAndUserDTO;
 import com.lym.gd.DTO.CourseDetailDTO;
 import com.lym.gd.entity.Course;
@@ -8,6 +9,7 @@ import com.lym.gd.entity.CourseAttachment;
 import com.lym.gd.entity.StudentCourse;
 import com.lym.gd.entity.User;
 import com.lym.gd.enums.CourseEnum;
+import com.lym.gd.mapper.CourseMapper;
 import com.lym.gd.repository.CourseAttachmentRepository;
 import com.lym.gd.repository.CourseRepository;
 import com.lym.gd.repository.StudentCourseRepository;
@@ -17,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -42,25 +43,20 @@ public class CourseService {
     @Autowired
     private HttpSession httpSession;
 
+    @Autowired
+    private CourseMapper courseMapper;
+
     /**
      * 根据课程状态查找
      * @param status
      * @return
      */
-    public List<CourseAndUserDTO> findCourseByCourseStatus(String status) {
-        List<CourseAndUserDTO> courseAndUserDTOS = new ArrayList<>();
+    public PageInfo<CourseAndUserDTO> findCourseByCourseStatus(String status,Integer page,Integer pageSize) {
+        PageHelper.startPage(page,pageSize);
+        List<CourseAndUserDTO> courseAndUserDTOList = courseMapper.findCourseAndUserByCourseStatus(status);
+        PageInfo<CourseAndUserDTO> pageInfo = new PageInfo<>(courseAndUserDTOList);
 
-        List<Course> courses = courseRepository.findByCourseStatus(status);
-
-        courses.forEach(course -> {
-            CourseAndUserDTO courseAndUserDTO = new CourseAndUserDTO();
-            courseAndUserDTO.setCourse(course);
-            User user = userRepository.findByUserId(course.getCourseTeacherId());
-            courseAndUserDTO.setUser(user);
-            courseAndUserDTOS.add(courseAndUserDTO);
-        });
-
-        return courseAndUserDTOS;
+        return pageInfo;
     }
 
     /**
