@@ -3,6 +3,7 @@ package com.lym.gd.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 import com.lym.gd.DTO.UserWorkCourseDTO;
+import com.lym.gd.DTO.WorkDetailDTO;
 import com.lym.gd.entity.Course;
 import com.lym.gd.service.CourseService;
 import com.lym.gd.service.WorkService;
@@ -61,6 +62,16 @@ public class WorkController {
         model.addAttribute("pageInfo",pageInfo);
 
         return "other/work";
+    }
+
+    @GetMapping("/work/{id}")
+    public String workDetail(@PathVariable("id") String workId,Model model){
+
+        WorkDetailDTO workDetailDTO = workService.getWorkDetail(workId);
+
+        model.addAttribute("workDetailDTO",workDetailDTO);
+
+        return "other/workDetail";
     }
 
 }

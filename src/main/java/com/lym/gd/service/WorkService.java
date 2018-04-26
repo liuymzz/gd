@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lym.gd.DTO.UserWorkCourseDTO;
+import com.lym.gd.DTO.WorkDetailDTO;
 import com.lym.gd.entity.*;
 import com.lym.gd.enums.CourseEnum;
 import com.lym.gd.enums.StudentCourseEnum;
@@ -12,6 +13,7 @@ import com.lym.gd.mapper.WorkMapper;
 import com.lym.gd.repository.*;
 import com.lym.gd.utils.IdUtils;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.validator.internal.metadata.aggregated.rule.ReturnValueMayOnlyBeMarkedOnceAsCascadedPerHierarchyLine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,9 +38,14 @@ public class WorkService {
     @Autowired
     private HttpSession httpSession;
 
-
     @Autowired
     private WorkMapper workMapper;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private CourseRepository courseRepository;
 
     @Transactional
     public void publishWork(JSONObject jsonObject) {
@@ -79,4 +86,27 @@ public class WorkService {
         return new PageInfo<>(userWorkCourseDTOS);
     }
 
+    /**
+     * 获取作业详细页面所需相关信息
+     *
+     * @param workId 作业id
+     * @return
+     */
+    public WorkDetailDTO getWorkDetail(String workId) {
+        WorkDetailDTO workDetailDTO = new WorkDetailDTO();
+
+        Work work = workRepository.findWorkByWorkId(workId);
+
+        List<WorkAttachment> workAttachments = workAttachmentRepository.findByWorkId(workId);
+
+        Course course = courseRepository.findByCourseId(work.getCourseId());
+
+        User user = userRepository.findByUserId(course.getCourseTeacherId());
+
+        workDetailDTO.setUser(user);
+        workDetailDTO.setWork(work);
+        workDetailDTO.setWorkAttachments(workAttachments);
+
+        return workDetailDTO;
+    }
 }

@@ -19,4 +19,11 @@ public interface WorkRepository extends JpaRepository<Work,String> {
      */
     List<Work> findByCourseIdAndWorkStatus(String courseId,String workStatus);
 
+    /**
+     * 根据id获取
+     * @param workId workId
+     * @return
+     */
+    Work findWorkByWorkId(String workId);
+
 }
