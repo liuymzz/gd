@@ -1,11 +1,14 @@
 package com.lym.gd.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.lym.gd.DTO.UserWorkCourseDTO;
 import com.lym.gd.entity.*;
 import com.lym.gd.enums.CourseEnum;
 import com.lym.gd.enums.StudentCourseEnum;
 import com.lym.gd.enums.WorkEnum;
+import com.lym.gd.mapper.WorkMapper;
 import com.lym.gd.repository.*;
 import com.lym.gd.utils.IdUtils;
 import org.apache.commons.lang.StringUtils;
@@ -33,14 +36,9 @@ public class WorkService {
     @Autowired
     private HttpSession httpSession;
 
-    @Autowired
-    private CourseRepository courseRepository;
 
     @Autowired
-    private StudentCourseRepository studentCourseRepository;
-
-    @Autowired
-    private UserRepository userRepository;
+    private WorkMapper workMapper;
 
     @Transactional
     public void publishWork(JSONObject jsonObject) {
@@ -72,38 +70,13 @@ public class WorkService {
         workRepository.save(work);
     }
 
-    public List<UserWorkCourseDTO> getWorkByUser() {
-        // 这里的user指的是布置这个作业的老师
-        List<UserWorkCourseDTO> userWorkCourseDTOS = new ArrayList<>();
+    public PageInfo<UserWorkCourseDTO> getUserWorkByUser(Integer page,Integer pageSize){
+        PageHelper.startPage(page,pageSize);
 
-        // 通过学生选课表获取学生已选的课程
-        String studentId = IdUtils.getUserId(httpSession);
+        String userId = IdUtils.getUserId(httpSession);
+        List<UserWorkCourseDTO> userWorkCourseDTOS = workMapper.getNormalWorkByStudent(userId);
 
-        List<StudentCourse> studentCourses = studentCourseRepository.findByStudentIdAndCourseStatus(studentId, StudentCourseEnum.NORMAL.getCode());
-
-        // 再根据学生已选课数据查询对应课程信息
-        List<Course> courses = new ArrayList<>();
-        studentCourses.forEach(studentCourse -> courses.add(courseRepository.findByCourseId(studentCourse.getCourseId())));
-
-        // 最后利用查询出来的符合条件的课程信息封装至UserWorkCourseDTOs对象中，并且把user跟work对象也补全
-        courses.forEach(course -> {
-            // 查询出该课程老师
-            User user = userRepository.findByUserId(course.getCourseTeacherId());
-
-            // 同一门课程可能会有多次作业
-            List<Work> works = workRepository.findByCourseIdAndWorkStatus(course.getCourseId(),WorkEnum.NORMAL.getCode());
-            works.forEach(work -> {
-                UserWorkCourseDTO userWorkCourseDTO = new UserWorkCourseDTO();
-                userWorkCourseDTO.setCourse(course);
-                userWorkCourseDTO.setUser(user);
-                userWorkCourseDTO.setWork(work);
-
-                userWorkCourseDTOS.add(userWorkCourseDTO);
-            });
-        });
-
-
-        return userWorkCourseDTOS;
+        return new PageInfo<>(userWorkCourseDTOS);
     }
 
 }

@@ -15,12 +15,12 @@
         <div class="layui-col-md8">
             <div class="fly-panel" style="margin-bottom: 0;">
                 <ul class="fly-list">
-                    <li th:each="userWorkCourseDTO:${userWorkCourseDTOs}">
+                    <li th:each="userWorkCourseDTO:${pageInfo.list}">
                         <a href="user/home.html" class="fly-avatar">
                             <img src="" th:src="${userWorkCourseDTO.user.userIcon}" alt="贤心">
                         </a>
                         <h2>
-                            <a class="layui-badge">分享</a>
+                            <a class="layui-badge">作业</a>
                             <a th:href="${'/workDetail/' + userWorkCourseDTO.work.workId}" href=""
                                th:utext="${userWorkCourseDTO.work.workTitle + '(' + userWorkCourseDTO.course.courseTitle + ')'}">课程标题</a>
                         </h2>
@@ -28,7 +28,7 @@
                             <a href="user/home.html" link>
                                 <cite th:utext="${userWorkCourseDTO.user.userName + '老师'}">教师名称</cite>
                             </a>
-                            <span th:utext="${userWorkCourseDTO.work.workCreateDate}">时间</span>
+                            <span th:utext="${#dates.format(userWorkCourseDTO.work.workCreateDate,'yyyy-MM-dd HH:mm:ss')}">时间</span>
 
                             <!--<span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻"><i class="iconfont icon-kiss"></i> 60</span>-->
                             <span class="fly-list-nums">
@@ -43,8 +43,20 @@
                 </ul>
 
 
+                <!--<div style="text-align: center">-->
+                    <!--<div class="laypage-main"><span class="laypage-curr">1</span><a href="/jie/page/2/">2</a><a-->
+                            <!--href="/jie/page/3/">3</a><a href="/jie/page/4/">4</a><a-->
+                            <!--href="/jie/page/5/">5</a><span>…</span><a href="/jie/page/148/" class="laypage-last"-->
+                                                                      <!--title="尾页">尾页</a><a href="/jie/page/2/"-->
+                                                                                          <!--class="laypage-next">下一页</a>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <!--页码-->
                 <div style="text-align: center">
-                    <div class="laypage-main"><span class="laypage-curr">1</span><a href="/jie/page/2/">2</a><a href="/jie/page/3/">3</a><a href="/jie/page/4/">4</a><a href="/jie/page/5/">5</a><span>…</span><a href="/jie/page/148/" class="laypage-last" title="尾页">尾页</a><a href="/jie/page/2/" class="laypage-next">下一页</a></div>
+                    <div class="laypage-main" th:each="num:${pageInfo.navigatepageNums}">
+                        <a th:utext="${num}" th:href="@{/work(page=${num})}" th:class="${num eq pageInfo.pageNum}?'laypage-curr'"></a>
+                    </div>
                 </div>
 
             </div>

@@ -1,6 +1,7 @@
 package com.lym.gd.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageInfo;
 import com.lym.gd.DTO.UserWorkCourseDTO;
 import com.lym.gd.entity.Course;
 import com.lym.gd.service.CourseService;
@@ -10,10 +11,7 @@ import com.lym.gd.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -56,11 +54,11 @@ public class WorkController {
     }
 
     @GetMapping("/work")
-    public String workView(Model model){
+    public String workView(Model model,@RequestParam(defaultValue = "1") Integer page,@RequestParam(defaultValue = "10") Integer pageSize){
 
-        List<UserWorkCourseDTO> userWorkCourseDTOS = workService.getWorkByUser();
+        PageInfo<UserWorkCourseDTO> pageInfo = workService.getUserWorkByUser(page,pageSize);
 
-        model.addAttribute("userWorkCourseDTOs",userWorkCourseDTOS);
+        model.addAttribute("pageInfo",pageInfo);
 
         return "other/work";
     }
