@@ -54,8 +54,10 @@
 
                 <!--页码-->
                 <div style="text-align: center">
-                    <div class="laypage-main" th:each="num:${pageInfo.navigatepageNums}">
-                        <a th:utext="${num}" th:href="@{/work(page=${num})}" th:class="${num eq pageInfo.pageNum}?'laypage-curr'"></a>
+                    <div class="laypage-main">
+                        <a href="/work?page=1">第一页</a>
+                        <a th:each="num:${pageInfo.navigatepageNums}" th:utext="${num}" th:href="@{/work(page=${num})}" th:class="${num eq pageInfo.pageNum}?'laypage-curr'"></a>
+                        <a th:href="@{/work(page=${pageInfo.pages})}">最后一页</a>
                     </div>
                 </div>
 
