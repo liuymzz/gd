@@ -1,5 +1,7 @@
 package com.lym.gd.mapper;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.lym.gd.DTO.UserWorkCourseDTO;
 import com.lym.gd.repository.WorkRepository;
 import org.junit.Test;
@@ -28,11 +30,12 @@ public class WorkMapperTest {
     @Test
     public void getAll() {
 
+        PageHelper.startPage(1,0);
+
         List<UserWorkCourseDTO> userWorkCourseDTOS = workMapper.getNormalWorkByStudent("456");
 
+        PageInfo<UserWorkCourseDTO> pageInfo = new PageInfo<>(userWorkCourseDTOS);
+
         userWorkCourseDTOS.forEach(System.out::println);
-
-        System.out.println(workMapper.getNormalWorkByStudent("456"));
-
     }
 }
