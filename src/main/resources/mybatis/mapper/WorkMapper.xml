@@ -5,7 +5,7 @@
 <mapper namespace="com.lym.gd.mapper.WorkMapper">
 
     <resultMap id="userWorkCourseDTO" type="com.lym.gd.DTO.UserWorkCourseDTO">
-        <result property="user.userIcon" column="userIcon" />
+        <result property="user.userIcon" column="user_icon" />
         <result property="user.userName" column="user_name" />
 
         <result property="work.workId" column="work_id" />
