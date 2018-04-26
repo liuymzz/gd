@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lym.gd.mapper.WorkMapper">
+
+    <resultMap id="userWorkCourseDTO" type="com.lym.gd.DTO.UserWorkCourseDTO">
+        <result property="user.userIcon" column="userIcon" />
+        <result property="user.userName" column="user_name" />
+
+        <result property="work.workId" column="work_id" />
+        <result property="work.workTitle" column="work_title" />
+        <result property="work.workCreateDate" column="work_create_date" />
+
+        <result property="course.courseTitle" column="course_title" />
+
+        <!--
+        <id column="user_id" jdbcType="VARCHAR" property="userInfo.userId" />
+		<result column="user_name" jdbcType="VARCHAR" property="userInfo.userName" />
+        -->
+    </resultMap>
+
+    <select id="getNormalWorkByStudent" resultMap="userWorkCourseDTO" parameterType="string">
+        select
+            u.user_icon,u.user_name,
+            w.work_id,w.work_title,w.work_create_date,
+            c.course_title
+        from student_course sc
+            left join course c on sc.`course_id` = c.`course_id`
+            left join work w on w.`course_id` = c.`course_id`
+            left join user u on u.`user_id` = c.`course_teacher_id`
+        where sc.`student_id` = ${studentId};
+    </select>
+
+</mapper>
