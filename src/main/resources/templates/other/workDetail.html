@@ -112,6 +112,10 @@
                 </div>
 
                 <div class="detail-about-reply">
+                    <button id="selectCourse" onclick="doWork()"
+
+                            class="layui-btn layui-btn-lg">写作业
+                    </button>
                     <br>
                     <br>
                     附件：
@@ -244,7 +248,11 @@
 
 <script src="../../res/layui/layui.js"></script>
 
-<script type="application/javascript">
+<script type="application/javascript" th:inline="javascript">
+
+    function doWork() {
+        window.location.href="/doWork/"+[[${workDetailDTO.work.workId}]];
+    }
 
 </script>
 
