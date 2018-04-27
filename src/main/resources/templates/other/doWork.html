@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
-  <title>布置作业</title>
+  <title th:utext="${work.workTitle}">作业标题</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="stylesheet" href="../../res/layui/css/layui.css">
   <link rel="stylesheet" href="../../res/css/global.css">
@@ -19,7 +19,7 @@
     <div class="layui-form layui-form-pane">
       <div class="layui-tab layui-tab-brief" lay-filter="user">
         <ul class="layui-tab-title">
-          <li class="layui-this">布置作业</li>
+          <li class="layui-this" th:utext="${work.workTitle}">作业标题</li>
         </ul>
         <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
           <div class="layui-tab-item layui-show">
@@ -78,7 +78,7 @@
                          class="layui-input">
                 </div>
                 <div class="layui-form-mid">
-                  <img th:src="@{/pictureVerifyCode(type=publishWork)}" style="height:22px;" id="codeImg"
+                  <img th:src="@{/pictureVerifyCode(type=doWork)}" style="height:22px;" id="codeImg"
                        alt="点击更换" onclick="refreshSafeCode()"
                        title="点击更换" src=""/>
                 </div>
@@ -112,7 +112,7 @@
 
         layedit.set({
             uploadImage: {
-                url: 'uploadImg'
+                url: '/uploadImg'
             }
         });
 
@@ -128,7 +128,7 @@
             safeVerify: function (value,item) {
                 var data={};
                 data.code=value;
-                data.type="publishWork";
+                data.type="doWork";
                 var result;
                 $.ajax({
                     type:'post',
@@ -160,7 +160,7 @@
             console.log(data.field);
             $.ajax({
                 type: "POST",
-                url: "/publishWork",
+                url: "/doWork",
                 contentType: "application/json;charset=UTF-8",
                 async:false,
                 data: JSON.stringify(data.field),
@@ -202,7 +202,7 @@
     });
 
     function refreshSafeCode() {
-        document.getElementById("codeImg").src="/pictureVerifyCode?type=publishWork&h="+Math.random();
+        document.getElementById("codeImg").src="/pictureVerifyCode?type=doWork&h="+Math.random();
     }
 </script>
 </body>
