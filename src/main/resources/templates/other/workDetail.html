@@ -251,7 +251,7 @@
 <script type="application/javascript" th:inline="javascript">
 
     function doWork() {
-        window.location.href="/doWork/"+[[${workDetailDTO.work.workId}]];
+        window.open('/doWork/'+[[${workDetailDTO.work.workId}]],'top');
     }
 
 </script>

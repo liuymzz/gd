@@ -38,4 +38,9 @@ public class WorkMapperTest {
 
         userWorkCourseDTOS.forEach(System.out::println);
     }
+
+    @Test
+    public void getNormalWorkByWorkIdTest(){
+        System.out.println(workMapper.getNormalWorkByWorkId("work4caf246408694138bb378c88a06aae19"));
+    }
 }

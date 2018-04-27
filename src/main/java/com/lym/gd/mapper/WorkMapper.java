@@ -1,6 +1,7 @@
 package com.lym.gd.mapper;
 
 import com.lym.gd.DTO.UserWorkCourseDTO;
+import com.lym.gd.entity.Work;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -17,4 +18,11 @@ public interface WorkMapper {
      * @return
      */
     List<UserWorkCourseDTO> getNormalWorkByStudent(@Param("studentId") String studentId);
+
+    /**
+     * 获取所属课程状态为正在进行的作业
+     * @param workId 作业id
+     * @return 作业
+     */
+    Work getNormalWorkByWorkId(@Param("workId") String workId);
 }

@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.lym.gd.DTO.UserWorkCourseDTO;
 import com.lym.gd.DTO.WorkDetailDTO;
 import com.lym.gd.entity.Course;
+import com.lym.gd.entity.Work;
 import com.lym.gd.service.CourseService;
 import com.lym.gd.service.WorkService;
 import com.lym.gd.utils.ResultVOUtil;
@@ -72,6 +73,18 @@ public class WorkController {
         model.addAttribute("workDetailDTO",workDetailDTO);
 
         return "other/workDetail";
+    }
+
+    @GetMapping("/doWork/{id}")
+    public String doWorkView(@PathVariable("id") String workId){
+
+        Work work = workService.getNormalWork(workId);
+
+        if (work == null){
+            return "redirect:/404";
+        }
+
+        return "other/doWork";
     }
 
 }

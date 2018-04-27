@@ -20,6 +20,15 @@
         -->
     </resultMap>
 
+    <resultMap id="work" type="com.lym.gd.entity.Work">
+        <id property="workId" column="work_id" />
+        <result property="courseId" column="course_id" />
+        <result property="workCreateDate" column="work_create_date" />
+        <result property="workTitle" column="work_title" />
+        <result property="workContent" column="work_content" />
+        <result property="workStatus" column="work_status" />
+    </resultMap>
+
     <select id="getNormalWorkByStudent" resultMap="userWorkCourseDTO" parameterType="string">
         select
             u.user_icon,u.user_name,
@@ -30,6 +39,13 @@
             left join work w on w.`course_id` = c.`course_id`
             left join user u on u.`user_id` = c.`course_teacher_id`
         where c.course_status = '2' and sc.`student_id` = ${studentId}
+    </select>
+
+    <select id="getNormalWorkByWorkId" resultMap="work" parameterType="string">
+        select w.course_id,w.work_create_date,w.work_title,w.work_id,w.work_status,w.work_content
+        from work w
+            left join course c on w.`course_id` = c.`course_id`
+        where c.`course_status`='2' and w.`work_id` = #{workId}
     </select>
 
 </mapper>

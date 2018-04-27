@@ -109,4 +109,13 @@ public class WorkService {
 
         return workDetailDTO;
     }
+
+    /**
+     * 获取所属课程状态为正在进行的作业
+     * @param workId
+     * @return
+     */
+    public Work getNormalWork(String workId){
+        return workMapper.getNormalWorkByWorkId(workId);
+    }
 }
