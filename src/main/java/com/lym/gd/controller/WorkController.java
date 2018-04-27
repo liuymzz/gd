@@ -76,13 +76,15 @@ public class WorkController {
     }
 
     @GetMapping("/doWork/{id}")
-    public String doWorkView(@PathVariable("id") String workId){
+    public String doWorkView(@PathVariable("id") String workId, Model model){
 
         Work work = workService.getNormalWork(workId);
 
         if (work == null){
             return "redirect:/404";
         }
+
+        model.addAttribute("work",work);
 
         return "other/doWork";
     }
