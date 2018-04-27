@@ -55,6 +55,14 @@ public class IdUtils {
         return "workAttachment"+getUUID();
     }
 
+    public static String getStudentWorkId(){
+        return "studentWork" + getUUID();
+    }
+
+    public static String getStudentWorkAttachmentId(){
+        return "studentWorkAttachment" + getUUID();
+    }
+
   public static String getFileID() {
     return "file" + getUUID();
   }

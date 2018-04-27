@@ -21,9 +21,12 @@ public class StudentWork {
     @Id
     private String studentWorkId;
 
+    /**
+     * 学生ID
+     */
     private String studentWorkUserId;
 
-    private String studentWorkCourseId;
+    private String workId;
 
     /**
      * 作业内容
@@ -41,4 +44,61 @@ public class StudentWork {
      */
     private Date studentWorkSubmitDate;
 
+    StudentWork(){}
+
+    private StudentWork(Builder builder) {
+        setStudentWorkId(builder.studentWorkId);
+        setStudentWorkUserId(builder.studentWorkUserId);
+        setWorkId(builder.workId);
+        setStudentWorkContent(builder.studentWorkContent);
+        setStudentWorkStatus(builder.studentWorkStatus);
+        setStudentWorkSubmitDate(builder.studentWorkSubmitDate);
+    }
+
+
+    public static final class Builder {
+        private String studentWorkId;
+        private String studentWorkUserId;
+        private String workId;
+        private String studentWorkContent;
+        private String studentWorkStatus;
+        private Date studentWorkSubmitDate;
+
+        public Builder() {
+        }
+
+        public Builder studentWorkId(String val) {
+            studentWorkId = val;
+            return this;
+        }
+
+        public Builder studentWorkUserId(String val) {
+            studentWorkUserId = val;
+            return this;
+        }
+
+        public Builder workId(String val) {
+            workId = val;
+            return this;
+        }
+
+        public Builder studentWorkContent(String val) {
+            studentWorkContent = val;
+            return this;
+        }
+
+        public Builder studentWorkStatus(String val) {
+            studentWorkStatus = val;
+            return this;
+        }
+
+        public Builder studentWorkSubmitDate(Date val) {
+            studentWorkSubmitDate = val;
+            return this;
+        }
+
+        public StudentWork build() {
+            return new StudentWork(this);
+        }
+    }
 }

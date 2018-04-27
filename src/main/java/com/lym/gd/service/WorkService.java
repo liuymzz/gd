@@ -6,20 +6,16 @@ import com.github.pagehelper.PageInfo;
 import com.lym.gd.DTO.UserWorkCourseDTO;
 import com.lym.gd.DTO.WorkDetailDTO;
 import com.lym.gd.entity.*;
-import com.lym.gd.enums.CourseEnum;
-import com.lym.gd.enums.StudentCourseEnum;
 import com.lym.gd.enums.WorkEnum;
 import com.lym.gd.mapper.WorkMapper;
 import com.lym.gd.repository.*;
 import com.lym.gd.utils.IdUtils;
 import org.apache.commons.lang.StringUtils;
-import org.hibernate.validator.internal.metadata.aggregated.rule.ReturnValueMayOnlyBeMarkedOnceAsCascadedPerHierarchyLine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -46,6 +42,12 @@ public class WorkService {
 
     @Autowired
     private CourseRepository courseRepository;
+
+    @Autowired
+    private StudentWorkRepository studentWorkRepository;
+
+    @Autowired
+    private StudentWorkAttachmentRepository studentWorkAttachmentRepository;
 
     @Transactional
     public void publishWork(JSONObject jsonObject) {
@@ -117,5 +119,16 @@ public class WorkService {
      */
     public Work getNormalWork(String workId){
         return workMapper.getNormalWorkByWorkId(workId);
+    }
+
+    /**
+     * 提交作业
+     * @param studentWork
+     * @param studentWorkAttachment
+     */
+    @Transactional
+    public void doWork(StudentWork studentWork,StudentWorkAttachment studentWorkAttachment){
+        studentWorkRepository.save(studentWork);
+        studentWorkAttachmentRepository.save(studentWorkAttachment);
     }
 }

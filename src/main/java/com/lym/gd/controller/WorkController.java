@@ -5,9 +5,12 @@ import com.github.pagehelper.PageInfo;
 import com.lym.gd.DTO.UserWorkCourseDTO;
 import com.lym.gd.DTO.WorkDetailDTO;
 import com.lym.gd.entity.Course;
+import com.lym.gd.entity.StudentWork;
+import com.lym.gd.entity.StudentWorkAttachment;
 import com.lym.gd.entity.Work;
 import com.lym.gd.service.CourseService;
 import com.lym.gd.service.WorkService;
+import com.lym.gd.utils.IdUtils;
 import com.lym.gd.utils.ResultVOUtil;
 import com.lym.gd.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,6 +36,9 @@ public class WorkController {
 
     @Autowired
     private WorkService workService;
+
+    @Autowired
+    private HttpSession httpSession;
 
     @GetMapping("/publishWork")
     public String publishWorkView(Model model){
@@ -87,6 +95,37 @@ public class WorkController {
         model.addAttribute("work",work);
 
         return "other/doWork";
+    }
+
+    @PostMapping("/doWork")
+    @ResponseBody
+    public ResultVO doWork(@RequestBody JSONObject jsonObject){
+        ResultVO resultVO = ResultVOUtil.success();
+
+        StudentWork studentWork = new StudentWork.Builder()
+                .studentWorkId(IdUtils.getStudentWorkId())
+                .studentWorkContent(jsonObject.getString("workContent"))
+                .workId(jsonObject.getString("workId"))
+                // 默认为未批阅状态
+                .studentWorkStatus("1")
+                .studentWorkSubmitDate(new Date())
+                .studentWorkUserId(IdUtils.getUserId(httpSession))
+                .build();
+
+        String workAttachmentUrl = jsonObject.getString("workAttachmentUrl");
+        String fileName = workAttachmentUrl.substring(workAttachmentUrl.indexOf("#") + 3);
+        workAttachmentUrl = workAttachmentUrl.replace("#","%23");
+
+        StudentWorkAttachment studentWorkAttachment = new StudentWorkAttachment.Builder()
+                .studentWorkAttachmentId(IdUtils.getStudentWorkAttachmentId())
+                .studentWorkId(studentWork.getStudentWorkId())
+                .studentWorkAttachmentName(fileName)
+                .studentWorkAttachmentUrl(workAttachmentUrl)
+                .build();
+
+        workService.doWork(studentWork,studentWorkAttachment);
+
+        return resultVO;
     }
 
 }

@@ -103,7 +103,7 @@
   </p>
 </div>
 
-<script type="application/javascript">
+<script type="application/javascript" th:inline="javascript">
     var layedit;
     var layeditIndex;
     //富文本编辑器
@@ -158,6 +158,7 @@
         form.on('submit(*)', function (data) {
 
             console.log(data.field);
+            data.field.workId = [[${work.workId}]];
             $.ajax({
                 type: "POST",
                 url: "/doWork",
