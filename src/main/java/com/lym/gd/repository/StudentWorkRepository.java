@@ -8,4 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @date 2018/4/27 下午3:25
  */
 public interface StudentWorkRepository extends JpaRepository<StudentWork,String> {
+
+    StudentWork findByStudentWorkUserIdAndWorkId(String studentWorkUserId,String workId);
 }

@@ -23,6 +23,9 @@
                             <a class="layui-badge">作业</a>
                             <a th:href="${'/work/' + userWorkCourseDTO.work.workId}" href=""
                                th:utext="${userWorkCourseDTO.work.workTitle + '(' + userWorkCourseDTO.course.courseTitle + ')'}">课程标题</a>
+                            <a th:if="${userWorkCourseDTO.finish eq true}">(已完成)</a>
+                            <a th:if="${userWorkCourseDTO.finish eq false}">(未完成)</a>
+
                         </h2>
                         <div class="fly-list-info">
                             <a href="user/home.html" link>

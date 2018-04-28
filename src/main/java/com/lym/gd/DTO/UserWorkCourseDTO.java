@@ -16,4 +16,9 @@ public class UserWorkCourseDTO {
     private Work work;
 
     private Course course;
+
+    /**
+     * 是否已经提交该作业
+     */
+    private boolean finish;
 }

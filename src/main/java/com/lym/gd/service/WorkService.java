@@ -85,6 +85,18 @@ public class WorkService {
         String userId = IdUtils.getUserId(httpSession);
         List<UserWorkCourseDTO> userWorkCourseDTOS = workMapper.getNormalWorkByStudent(userId);
 
+        // 添加是否已经完成该作业标识
+        userWorkCourseDTOS.forEach(userWorkCourseDTO -> {
+            StudentWork studentWork
+                    = studentWorkRepository.findByStudentWorkUserIdAndWorkId(IdUtils.getUserId(httpSession),userWorkCourseDTO.getWork().getWorkId());
+            if (studentWork == null) {
+                userWorkCourseDTO.setFinish(false);
+            } else {
+                userWorkCourseDTO.setFinish(true);
+            }
+        });
+
+
         return new PageInfo<>(userWorkCourseDTOS);
     }
 
