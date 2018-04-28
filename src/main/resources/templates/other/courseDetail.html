@@ -112,7 +112,15 @@
                 </div>
 
                 <div class="detail-about-reply">
-                    <button id="selectCourse" onclick="selectCourse()" th:onclick="${'selectCourse(''' + courseDetailDTO.course.courseId + ''')'}" class="layui-btn layui-btn-lg">我要上这堂课</button>
+                    <button
+                            id="selectCourse"
+                            onclick="selectCourse()"
+                            th:onclick="${'selectCourse(''' + courseDetailDTO.course.courseId + ''')'}"
+                            th:class="${courseDetailDTO.selected eq false?'layui-btn layui-btn-lg':'layui-btn layui-btn-lg layui-btn-disabled'}"
+                            th:utext="${courseDetailDTO.selected eq false?'我要上这堂课':'你已经选了这门课啦-_-!!!'}"
+                    >
+                        我要上这堂课
+                    </button>
                     <br>
                     <br>
                     附件：

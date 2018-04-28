@@ -1,6 +1,5 @@
 package com.lym.gd.entity;
 
-import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.Entity;

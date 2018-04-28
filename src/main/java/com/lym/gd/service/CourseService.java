@@ -80,6 +80,15 @@ public class CourseService {
         courseDetailDTO.setUser(user);
         courseDetailDTO.setCourseAttachment(courseAttachment);
 
+        StudentCourse studentCourse =
+                studentCourseRepository.findByCourseIdAndStudentId(course.getCourseId(),IdUtils.getUserId(httpSession));
+
+        if (studentCourse == null){
+            courseDetailDTO.setSelected(false);
+        } else {
+            courseDetailDTO.setSelected(true);
+        }
+
         return courseDetailDTO;
     }
 

@@ -11,6 +11,12 @@ import java.util.List;
  */
 public interface StudentCourseRepository extends JpaRepository<StudentCourse,String> {
 
+    /**
+     * 某用户是否已选该门课程
+     * @param courseId
+     * @param studentId
+     * @return 如果是null说明没选
+     */
     StudentCourse findByCourseIdAndStudentId(String courseId,String studentId);
 
     /**

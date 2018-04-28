@@ -16,4 +16,9 @@ public class CourseDetailDTO {
     private Course course;
     private CourseAttachment courseAttachment;
 
+    /**
+     * 是否已选该门课程
+     */
+    private boolean selected;
+
 }
