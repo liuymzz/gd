@@ -12,4 +12,9 @@ import lombok.Data;
 public class CourseAndUserDTO {
     private Course course;
     private User user;
+
+    /**
+     * 是否已选该门课程
+     */
+    private boolean selected;
 }

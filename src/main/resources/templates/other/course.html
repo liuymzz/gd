@@ -22,6 +22,7 @@
                         <h2>
                             <a class="layui-badge">课程</a>
                             <a th:href="${'/courseDetail/' + courseAndUserDTO.course.courseId}" href="detail.html" th:utext="${courseAndUserDTO.course.courseTitle}">课程标题</a>
+                            <a style="color: #ff1712" th:utext="${courseAndUserDTO.selected eq false?'':'(已选)'}"></a>
                         </h2>
                         <div class="fly-list-info">
                             <a href="user/home.html" link>

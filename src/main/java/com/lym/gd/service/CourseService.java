@@ -54,6 +54,18 @@ public class CourseService {
     public PageInfo<CourseAndUserDTO> findCourseByCourseStatus(String status,Integer page,Integer pageSize) {
         PageHelper.startPage(page,pageSize);
         List<CourseAndUserDTO> courseAndUserDTOList = courseMapper.findCourseAndUserByCourseStatus(status);
+
+        // 是否已选该门课程
+        courseAndUserDTOList.forEach(courseAndUserDTO -> {
+            StudentCourse studentCourse =
+                    studentCourseRepository.findByCourseIdAndStudentId(courseAndUserDTO.getCourse().getCourseId(),IdUtils.getUserId(httpSession));
+            if (studentCourse == null){
+                courseAndUserDTO.setSelected(false);
+            } else {
+                courseAndUserDTO.setSelected(true);
+            }
+        });
+
         PageInfo<CourseAndUserDTO> pageInfo = new PageInfo<>(courseAndUserDTOList);
 
         return pageInfo;
