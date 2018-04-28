@@ -17,5 +17,9 @@ public class WorkDetailDTO {
     private Work work;
     private List<WorkAttachment> workAttachments;
 
+    /**
+     * 是否已完成该作业
+     */
+    private boolean finish;
 
 }

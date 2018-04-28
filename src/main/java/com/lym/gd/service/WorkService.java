@@ -121,6 +121,14 @@ public class WorkService {
         workDetailDTO.setWork(work);
         workDetailDTO.setWorkAttachments(workAttachments);
 
+        StudentWork studentWork = studentWorkRepository.findByStudentWorkUserIdAndWorkId(IdUtils.getUserId(httpSession),workDetailDTO.getWork().getWorkId());
+
+        if (studentWork == null) {
+            workDetailDTO.setFinish(false);
+        } else {
+            workDetailDTO.setFinish(true);
+        }
+
         return workDetailDTO;
     }
 

@@ -9,5 +9,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface StudentWorkRepository extends JpaRepository<StudentWork,String> {
 
+    /**
+     * 查询用户是否已完成某课程作业
+     * @param studentWorkUserId
+     * @param workId
+     * @return 如果返回null则说明没有完成
+     */
     StudentWork findByStudentWorkUserIdAndWorkId(String studentWorkUserId,String workId);
 }
