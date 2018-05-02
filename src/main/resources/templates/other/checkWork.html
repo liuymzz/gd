@@ -40,7 +40,8 @@
                             <img src="" th:src="${checkWorkDTO.user.userIcon}" alt="贤心">
                         </a>
                         <h2>
-                            <a class="layui-badge">已完成</a>
+                            <span class="layui-badge">已完成</span>
+                            <span th:if="${checkWorkDTO.studentWork.studentWorkStatus eq '2'}" class="layui-badge layui-bg-red">已阅</span>
                             <a th:href="${'/checkWork/' + checkWorkDTO.studentWork.studentWorkId}" href=""
                                th:utext="${checkWorkDTO.user.userName}">学生姓名</a>
 

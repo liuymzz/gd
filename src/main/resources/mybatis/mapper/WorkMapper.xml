@@ -27,6 +27,7 @@
         <result property="user.userName" column="user_name" />
 
         <result property="studentWork.studentWorkSubmitDate" column="student_work_submit_date" />
+        <result property="studentWork.studentWorkStatus" column="student_work_status" />
     </resultMap>
 
     <resultMap id="work" type="com.lym.gd.entity.Work">
@@ -63,7 +64,8 @@
             u.user_icon,
             u.user_name,
             sw.student_work_submit_date,
-            sw.student_work_id
+            sw.student_work_id,
+            sw.student_work_status
         from student_work sw
             left join user u on sw.student_work_user_id = u.user_id
         where sw.work_id = #{workId}
