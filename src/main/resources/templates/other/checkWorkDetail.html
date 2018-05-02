@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../../res/css/global.css">
     <script src="../../res/js/jquery.js"></script>
     <script src="../../res/layui/layui.js"></script>
+    <!--<script src="../../res/layui/lay/modules/layer.js"></script>-->
 </head>
 <body>
 
@@ -46,7 +47,6 @@
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md8 content detail">
             <div class="fly-panel detail-box">
-                <h1 th:utext="${checkWorkDTO.user.userName}">标题</h1>
                 <div class="fly-detail-info">
                     <!-- <span class="layui-badge">审核中</span> -->
                     <span class="layui-badge layui-bg-green fly-detail-column">动态</span>
@@ -93,9 +93,10 @@
                 </div>
 
                 <div class="detail-about-reply">
-                    <button id="selectCourse" onclick="doWork()"
+                    <button id="readWork" th:onclick="${checkWorkDTO.studentWork.studentWorkStatus eq '1'?'readed('''+checkWorkDTO.studentWork.studentWorkId+''')':''}"
+                        th:class="${checkWorkDTO.studentWork.studentWorkStatus eq '2'?'layui-btn layui-btn-lg layui-btn-disabled':'layui-btn layui-btn-lg'}"
                     >
-                        写作业
+                        已阅
                     </button>
                     <br>
                     <br>
@@ -229,8 +230,28 @@
 
 
 
-<script type="application/javascript" th:inline="javascript">
+<script type="application/javascript">
 
+    var layer;
+    layui.use('layer', function(){
+        layer = layui.layer;
+    });
+
+    function readed(studentWorkId) {
+        var data = {};
+        data.studentWorkId = studentWorkId;
+        $.ajax({
+            type:"POST",
+            url:"/readWork",
+            data:JSON.stringify(data),
+            contentType:"application/json",
+            success:function (data) {
+                layer.msg(data.message);
+                $("#readWork").addClass("layui-btn-disabled");
+                $("#readWork").removeAttr("onclick");
+            }
+        });
+    }
 
 </script>
 

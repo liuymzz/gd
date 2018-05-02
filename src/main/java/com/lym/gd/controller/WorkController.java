@@ -172,4 +172,15 @@ public class WorkController {
 
         return "other/checkWorkDetail";
     }
+
+
+    @PostMapping("/readWork")
+    @ResponseBody
+    public ResultVO readWork(@RequestBody JSONObject jsonObject){
+        ResultVO resultVO = ResultVOUtil.success();
+
+        workService.readWork(jsonObject.getString("studentWorkId"));
+
+        return resultVO;
+    }
 }

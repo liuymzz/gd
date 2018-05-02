@@ -7,6 +7,7 @@ import com.lym.gd.DTO.CheckWorkDTO;
 import com.lym.gd.DTO.UserWorkCourseDTO;
 import com.lym.gd.DTO.WorkDetailDTO;
 import com.lym.gd.entity.*;
+import com.lym.gd.enums.StudentWorkEnum;
 import com.lym.gd.enums.WorkEnum;
 import com.lym.gd.mapper.WorkMapper;
 import com.lym.gd.repository.*;
@@ -193,4 +194,19 @@ public class WorkService {
 
         return checkWorkDTO;
     }
+
+    /**
+     * 作业已阅
+     * @param studentWorkId
+     */
+    public void readWork(String studentWorkId){
+
+        StudentWork studentWork = studentWorkRepository.findByStudentWorkId(studentWorkId);
+
+        studentWork.setStudentWorkStatus(StudentWorkEnum.READE.getCode());
+
+        studentWorkRepository.save(studentWork);
+
+    }
+
 }
