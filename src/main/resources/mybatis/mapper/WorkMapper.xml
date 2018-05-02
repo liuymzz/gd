@@ -65,7 +65,7 @@
             sw.student_work_submit_date,
             sw.student_work_id
         from student_work sw
-            left join user u on sw.student_work_user_id
+            left join user u on sw.student_work_user_id = u.user_id
         where sw.work_id = #{workId}
     </select>
 
