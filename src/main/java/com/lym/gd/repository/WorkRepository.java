@@ -26,4 +26,6 @@ public interface WorkRepository extends JpaRepository<Work,String> {
      */
     Work findWorkByWorkId(String workId);
 
+    List<Work> findByCourseId(String courseId);
+
 }

@@ -164,4 +164,12 @@ public class WorkService {
         List<CheckWorkDTO> checkWorkDTOS = workMapper.getUserAndStudentWorkByWorkId(workId);
         return new PageInfo<>(checkWorkDTOS);
     }
+
+    /**
+     * 根据courseId获取Work
+     * @return
+     */
+    public List<Work> findWorksByCourseId(String courseId){
+        return workRepository.findByCourseId(courseId);
+    }
 }

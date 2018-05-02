@@ -6,15 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="../../res/layui/css/layui.css">
     <link rel="stylesheet" href="../../res/css/global.css">
+    <script src="../../res/layui/layui.js"></script>
+    <script src="../../res/js/jquery.js"></script>
+
 </head>
 <body>
 <div th:replace="common/header :: header"></div>
 <br>
-<div class="layui-container">
+<div class="layui-container layui-form">
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md8">
             <div class="fly-panel" style="margin-bottom: 0;">
                 <ul class="fly-list">
+
+                    <li>
+                    <div class="layui-form-item">
+                        <div class="layui-input-inline">
+                            <select lay-filter="courseSelect" id="select" name="courseId">
+                                <option value="" selected>请选择课程</option>
+                                <option th:each="course:${courses}" th:value="${course.courseId}" th:utext="${course.courseTitle}"></option>
+                            </select>
+                        </div>
+                        <div class="layui-input-inline">
+                            <select lay-filter="workSelect" id="work" name="workId">
+                                <option value="" selected>请选择作业</option>
+                            </select>
+                        </div>
+                    </div>
+                    </li>
+                    <li th:if="${pageInfo.list.size() eq 0}">请先选择课程以及作业</li>
                     <li th:each="checkWorkDTO:${pageInfo.list}">
                         <a href="user/home.html" class="fly-avatar">
                             <img src="" th:src="${checkWorkDTO.user.userIcon}" alt="贤心">
@@ -72,7 +92,30 @@
         <a href="http://fly.layui.com/jie/2461/" target="_blank">微信公众号</a>
     </p>
 </div>
-<script src="../../res/layui/layui.js"></script>
+<script type="application/javascript" th:inline="javascript">
+    layui.use('form',function () {
+        var form = layui.form;
+
+        // 课程下拉框
+        form.on('select(courseSelect)', function(data){
+            console.log(data);
+            $.ajax({
+                url: "/works?courseId=" + data.value,
+                type:'GET',
+                success:function (data) {
+                    $("#work").empty();
+                    for (var work in data.data){
+                        console.log(work);
+                        console.log(data.data[work].workTitle);
+                        $("#work").append('<option value="" >请选择</option>');
+                        $("#work").append('<option value="'+data.data[work].workId+'" >'+data.data[work].workTitle+'</option>');
+                    }
+                    form.render();
+                }
+            });
+        });
+    });
+</script>
 <script>
     layui.cache.page = 'jie';
     layui.cache.user = {

@@ -132,13 +132,28 @@ public class WorkController {
 
     @GetMapping("/checkWork")
     public String checkWork(
-            @RequestParam(defaultValue = "10") Integer pageSize, @RequestParam(defaultValue = "1") Integer pageNum, Model model){
+            @RequestParam(defaultValue = "10") Integer pageSize,
+            @RequestParam(defaultValue = "1") Integer pageNum,
+            @RequestParam(name = "workId",required = false) String workId,Model model){
 
-        PageInfo<CheckWorkDTO> pageInfo = workService.getCheckWorkDTO("work4caf246408694138bb378c88a06aae19",pageNum,pageSize);
+        PageInfo<CheckWorkDTO> pageInfo = workService.getCheckWorkDTO(workId,pageNum,pageSize);
 
         model.addAttribute("pageInfo",pageInfo);
 
+        List<Course> courses = courseService.getStartAndNotFinishCourse();
+        model.addAttribute("courses",courses);
 
         return "other/checkWork";
+    }
+
+    @GetMapping("/works")
+    @ResponseBody
+    public ResultVO getWorks(@RequestParam(name = "courseId") String courseId){
+        ResultVO resultVO = ResultVOUtil.success();
+
+        List<Work> works = workService.findWorksByCourseId(courseId);
+        resultVO.setData(works);
+
+        return resultVO;
     }
 }
