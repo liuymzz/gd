@@ -21,6 +21,8 @@
     </resultMap>
 
     <resultMap id="checkWorkDTO" type="com.lym.gd.DTO.CheckWorkDTO">
+        <id property="studentWork.studentWorkId" column="student_work_id" />
+
         <result property="user.userIcon" column="user_icon" />
         <result property="user.userName" column="user_name" />
 
@@ -60,7 +62,8 @@
         select
             u.user_icon,
             u.user_name,
-            sw.student_work_submit_date
+            sw.student_work_submit_date,
+            sw.student_work_id
         from student_work sw
             left join user u on sw.student_work_user_id
         where sw.work_id = #{workId}

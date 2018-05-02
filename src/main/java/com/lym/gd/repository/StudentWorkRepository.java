@@ -16,4 +16,11 @@ public interface StudentWorkRepository extends JpaRepository<StudentWork,String>
      * @return 如果返回null则说明没有完成
      */
     StudentWork findByStudentWorkUserIdAndWorkId(String studentWorkUserId,String workId);
+
+    /**
+     * 根据id查找
+     * @param studentWorkId
+     * @return
+     */
+    StudentWork findByStudentWorkId(String studentWorkId);
 }

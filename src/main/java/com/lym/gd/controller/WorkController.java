@@ -156,4 +156,20 @@ public class WorkController {
 
         return resultVO;
     }
+
+    /**
+     * checkWork详情界面
+     *
+     * @param studentWorkId
+     * @return
+     */
+    @GetMapping("/checkWork/{id}")
+    public String checkWorkDetail(@PathVariable("id") String studentWorkId, Model model) {
+
+        CheckWorkDTO checkWorkDTO = workService.getCheckWorkDetail(studentWorkId);
+
+        model.addAttribute("checkWorkDTO", checkWorkDTO);
+
+        return "other/checkWorkDetail";
+    }
 }

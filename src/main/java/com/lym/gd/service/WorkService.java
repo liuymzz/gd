@@ -172,4 +172,25 @@ public class WorkService {
     public List<Work> findWorksByCourseId(String courseId){
         return workRepository.findByCourseId(courseId);
     }
+
+    /**
+     * checkWork详细页面
+     * @param studentWorkId
+     * @return
+     */
+    public CheckWorkDTO getCheckWorkDetail(String studentWorkId){
+        CheckWorkDTO checkWorkDTO = new CheckWorkDTO();
+
+        StudentWork studentWork = studentWorkRepository.findByStudentWorkId(studentWorkId);
+
+        List<StudentWorkAttachment> studentWorkAttachments = studentWorkAttachmentRepository.findByStudentWorkId(studentWorkId);
+
+        User user = userRepository.findByUserId(studentWork.getStudentWorkUserId());
+
+        checkWorkDTO.setStudentWork(studentWork);
+        checkWorkDTO.setStudentWorkAttachments(studentWorkAttachments);
+        checkWorkDTO.setUser(user);
+
+        return checkWorkDTO;
+    }
 }
