@@ -15,6 +15,7 @@ import com.lym.gd.utils.IdUtils;
 import com.lym.gd.utils.ResultVOUtil;
 import com.lym.gd.vo.ResultVO;
 import com.sun.org.apache.xpath.internal.operations.Mod;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -115,15 +116,20 @@ public class WorkController {
                 .build();
 
         String workAttachmentUrl = jsonObject.getString("workAttachmentUrl");
-        String fileName = workAttachmentUrl.substring(workAttachmentUrl.indexOf("#") + 3);
-        workAttachmentUrl = workAttachmentUrl.replace("#","%23");
 
-        StudentWorkAttachment studentWorkAttachment = new StudentWorkAttachment.Builder()
-                .studentWorkAttachmentId(IdUtils.getStudentWorkAttachmentId())
-                .studentWorkId(studentWork.getStudentWorkId())
-                .studentWorkAttachmentName(fileName)
-                .studentWorkAttachmentUrl(workAttachmentUrl)
-                .build();
+        StudentWorkAttachment studentWorkAttachment = null;
+        if (StringUtils.isNotEmpty(workAttachmentUrl)){
+            String fileName = workAttachmentUrl.substring(workAttachmentUrl.indexOf("#") + 3);
+            workAttachmentUrl = workAttachmentUrl.replace("#","%23");
+
+            studentWorkAttachment = new StudentWorkAttachment.Builder()
+                    .studentWorkAttachmentId(IdUtils.getStudentWorkAttachmentId())
+                    .studentWorkId(studentWork.getStudentWorkId())
+                    .studentWorkAttachmentName(fileName)
+                    .studentWorkAttachmentUrl(workAttachmentUrl)
+                    .build();
+        }
+
 
         workService.doWork(studentWork,studentWorkAttachment);
 

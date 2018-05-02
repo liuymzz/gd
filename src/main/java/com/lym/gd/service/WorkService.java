@@ -151,7 +151,10 @@ public class WorkService {
     @Transactional
     public void doWork(StudentWork studentWork,StudentWorkAttachment studentWorkAttachment){
         studentWorkRepository.save(studentWork);
-        studentWorkAttachmentRepository.save(studentWorkAttachment);
+
+        if (studentWorkAttachment != null) {
+            studentWorkAttachmentRepository.save(studentWorkAttachment);
+        }
     }
 
     /**
