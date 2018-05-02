@@ -98,21 +98,24 @@
 
         // 课程下拉框
         form.on('select(courseSelect)', function(data){
-            console.log(data);
             $.ajax({
                 url: "/works?courseId=" + data.value,
                 type:'GET',
                 success:function (data) {
                     $("#work").empty();
                     for (var work in data.data){
-                        console.log(work);
-                        console.log(data.data[work].workTitle);
                         $("#work").append('<option value="" >请选择</option>');
                         $("#work").append('<option value="'+data.data[work].workId+'" >'+data.data[work].workTitle+'</option>');
                     }
                     form.render();
                 }
             });
+        });
+
+        // 作业下拉框
+        form.on('select(workSelect)', function (data) {
+            console.log(data);
+            window.location.href="/checkWork?workId="+data.value;
         });
     });
 </script>
