@@ -20,6 +20,13 @@
         -->
     </resultMap>
 
+    <resultMap id="checkWorkDTO" type="com.lym.gd.DTO.CheckWorkDTO">
+        <result property="user.userIcon" column="user_icon" />
+        <result property="user.userName" column="user_name" />
+
+        <result property="studentWork.studentWorkSubmitDate" column="student_work_submit_date" />
+    </resultMap>
+
     <resultMap id="work" type="com.lym.gd.entity.Work">
         <id property="workId" column="work_id" />
         <result property="courseId" column="course_id" />
@@ -47,5 +54,17 @@
             left join course c on w.`course_id` = c.`course_id`
         where c.`course_status`='2' and w.`work_id` = #{workId}
     </select>
+
+
+    <select id="getUserAndStudentWorkByWorkId" resultMap="checkWorkDTO">
+        select
+            u.user_icon,
+            u.user_name,
+            sw.student_work_submit_date
+        from student_work sw
+            left join user u on sw.student_work_user_id
+        where sw.work_id = #{workId}
+    </select>
+
 
 </mapper>

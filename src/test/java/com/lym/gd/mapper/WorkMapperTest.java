@@ -43,4 +43,9 @@ public class WorkMapperTest {
     public void getNormalWorkByWorkIdTest(){
         System.out.println(workMapper.getNormalWorkByWorkId("work4caf246408694138bb378c88a06aae19"));
     }
+
+    @Test
+    public void getUserAndStudentWorkByWorkIdTest(){
+        System.out.println(workMapper.getUserAndStudentWorkByWorkId("work4caf246408694138bb378c88a06aae19"));
+    }
 }
