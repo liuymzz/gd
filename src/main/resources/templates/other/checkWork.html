@@ -15,23 +15,18 @@
         <div class="layui-col-md8">
             <div class="fly-panel" style="margin-bottom: 0;">
                 <ul class="fly-list">
-                    <li th:each="userWorkCourseDTO:${pageInfo.list}">
+                    <li th:each="checkWorkDTO:${pageInfo.list}">
                         <a href="user/home.html" class="fly-avatar">
-                            <img src="" th:src="${userWorkCourseDTO.user.userIcon}" alt="贤心">
+                            <img src="" th:src="${checkWorkDTO.user.userIcon}" alt="贤心">
                         </a>
                         <h2>
-                            <a class="layui-badge">作业</a>
-                            <a th:href="${'/work/' + userWorkCourseDTO.work.workId}" href=""
-                               th:utext="${userWorkCourseDTO.work.workTitle + '(' + userWorkCourseDTO.course.courseTitle + ')'}">课程标题</a>
-                            <a th:if="${userWorkCourseDTO.finish eq true}">(已完成)</a>
-                            <a th:if="${userWorkCourseDTO.finish eq false}">(未完成)</a>
+                            <a class="layui-badge">已完成</a>
+                            <a th:href="${'/work/' + checkWorkDTO.studentWork.studentWorkId}" href=""
+                               th:utext="${checkWorkDTO.user.userName}">学生姓名</a>
 
                         </h2>
                         <div class="fly-list-info">
-                            <a href="user/home.html" link>
-                                <cite th:utext="${userWorkCourseDTO.user.userName + '老师'}">教师名称</cite>
-                            </a>
-                            <span th:utext="${#dates.format(userWorkCourseDTO.work.workCreateDate,'yyyy-MM-dd HH:mm:ss')}">时间</span>
+                            <span th:utext="${#dates.format(checkWorkDTO.studentWork.studentWorkSubmitDate,'yyyy-MM-dd HH:mm:ss')}">时间</span>
 
                             <!--<span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻"><i class="iconfont icon-kiss"></i> 60</span>-->
                             <span class="fly-list-nums">

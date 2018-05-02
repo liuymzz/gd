@@ -3,6 +3,7 @@ package com.lym.gd.service;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.lym.gd.DTO.CheckWorkDTO;
 import com.lym.gd.DTO.UserWorkCourseDTO;
 import com.lym.gd.DTO.WorkDetailDTO;
 import com.lym.gd.entity.*;
@@ -150,5 +151,17 @@ public class WorkService {
     public void doWork(StudentWork studentWork,StudentWorkAttachment studentWorkAttachment){
         studentWorkRepository.save(studentWork);
         studentWorkAttachmentRepository.save(studentWorkAttachment);
+    }
+
+    /**
+     * 批改作业列表界面，获取已提交作业的学生列表
+     *
+     * @param workId
+     * @return
+     */
+    public PageInfo<CheckWorkDTO> getCheckWorkDTO(String workId, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<CheckWorkDTO> checkWorkDTOS = workMapper.getUserAndStudentWorkByWorkId(workId);
+        return new PageInfo<>(checkWorkDTOS);
     }
 }

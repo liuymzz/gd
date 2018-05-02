@@ -2,6 +2,7 @@ package com.lym.gd.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
+import com.lym.gd.DTO.CheckWorkDTO;
 import com.lym.gd.DTO.UserWorkCourseDTO;
 import com.lym.gd.DTO.WorkDetailDTO;
 import com.lym.gd.entity.Course;
@@ -13,6 +14,7 @@ import com.lym.gd.service.WorkService;
 import com.lym.gd.utils.IdUtils;
 import com.lym.gd.utils.ResultVOUtil;
 import com.lym.gd.vo.ResultVO;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -129,7 +131,13 @@ public class WorkController {
     }
 
     @GetMapping("/checkWork")
-    public String checkWork(){
+    public String checkWork(
+            @RequestParam(defaultValue = "10") Integer pageSize, @RequestParam(defaultValue = "1") Integer pageNum, Model model){
+
+        PageInfo<CheckWorkDTO> pageInfo = workService.getCheckWorkDTO("work4caf246408694138bb378c88a06aae19",pageNum,pageSize);
+
+        model.addAttribute("pageInfo",pageInfo);
+
 
         return "other/checkWork";
     }
