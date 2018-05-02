@@ -128,4 +128,9 @@ public class WorkController {
         return resultVO;
     }
 
+    @GetMapping("/checkWork")
+    public String checkWork(){
+
+        return "other/checkWork";
+    }
 }

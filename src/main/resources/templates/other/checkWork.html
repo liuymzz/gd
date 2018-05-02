@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>批改作业</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../res/layui/css/layui.css">
+    <link rel="stylesheet" href="../../res/css/global.css">
+</head>
+<body>
+<div th:replace="common/header :: header"></div>
+<br>
+<div class="layui-container">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md8">
+            <div class="fly-panel" style="margin-bottom: 0;">
+                <ul class="fly-list">
+                    <li th:each="userWorkCourseDTO:${pageInfo.list}">
+                        <a href="user/home.html" class="fly-avatar">
+                            <img src="" th:src="${userWorkCourseDTO.user.userIcon}" alt="贤心">
+                        </a>
+                        <h2>
+                            <a class="layui-badge">作业</a>
+                            <a th:href="${'/work/' + userWorkCourseDTO.work.workId}" href=""
+                               th:utext="${userWorkCourseDTO.work.workTitle + '(' + userWorkCourseDTO.course.courseTitle + ')'}">课程标题</a>
+                            <a th:if="${userWorkCourseDTO.finish eq true}">(已完成)</a>
+                            <a th:if="${userWorkCourseDTO.finish eq false}">(未完成)</a>
+
+                        </h2>
+                        <div class="fly-list-info">
+                            <a href="user/home.html" link>
+                                <cite th:utext="${userWorkCourseDTO.user.userName + '老师'}">教师名称</cite>
+                            </a>
+                            <span th:utext="${#dates.format(userWorkCourseDTO.work.workCreateDate,'yyyy-MM-dd HH:mm:ss')}">时间</span>
+
+                            <!--<span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻"><i class="iconfont icon-kiss"></i> 60</span>-->
+                            <span class="fly-list-nums">
+                <!--<i class="iconfont icon-pinglun1" title="回答"></i> 66-->
+              </span>
+                        </div>
+                        <div class="fly-list-badge">
+                            <!--<span class="layui-badge layui-bg-black">置顶</span>-->
+                        </div>
+                    </li>
+
+                </ul>
+
+
+                <!--<div style="text-align: center">-->
+                    <!--<div class="laypage-main"><span class="laypage-curr">1</span><a href="/jie/page/2/">2</a><a-->
+                            <!--href="/jie/page/3/">3</a><a href="/jie/page/4/">4</a><a-->
+                            <!--href="/jie/page/5/">5</a><span>…</span><a href="/jie/page/148/" class="laypage-last"-->
+                                                                      <!--title="尾页">尾页</a><a href="/jie/page/2/"-->
+                                                                                          <!--class="laypage-next">下一页</a>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <!--页码-->
+                <div style="text-align: center">
+                    <div class="laypage-main">
+                        <a href="/work?page=1">第一页</a>
+                        <a th:each="num:${pageInfo.navigatepageNums}" th:utext="${num}" th:href="@{/work(page=${num})}" th:class="${num eq pageInfo.pageNum}?'laypage-curr'"></a>
+                        <a th:href="@{/work(page=${pageInfo.pages})}">最后一页</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="fly-footer">
+    <p><a href="http://fly.layui.com/" target="_blank">Fly社区</a> 2017 &copy; <a href="http://www.layui.com/" target="_blank">layui.com 出品</a></p>
+    <p>
+        <a href="http://fly.layui.com/jie/3147/" target="_blank">付费计划</a>
+        <a href="http://www.layui.com/template/fly/" target="_blank">获取Fly社区模版</a>
+        <a href="http://fly.layui.com/jie/2461/" target="_blank">微信公众号</a>
+    </p>
+</div>
+<script src="../../res/layui/layui.js"></script>
+<script>
+    layui.cache.page = 'jie';
+    layui.cache.user = {
+        username: '游客'
+        ,uid: -1
+        ,avatar: '../../res/images/avatar/00.jpg'
+        ,experience: 83
+        ,sex: '男'
+    };
+    layui.config({
+        version: "3.0.0"
+        ,base: '../../res/mods/'
+    }).extend({
+        fly: 'index'
+    }).use('fly');
+</script>
+
+</body>
+</html>
