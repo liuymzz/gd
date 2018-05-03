@@ -24,4 +24,9 @@ public class CourseMapperTest {
     public void findCourseAndUserByCourseStatus() {
         System.out.println(courseMapper.findCourseAndUserByCourseStatus("1"));
     }
+
+    @Test
+    public void updateCourseStatus2StartingTest(){
+        System.out.println(courseMapper.updateCourseStatus2Starting());
+    }
 }

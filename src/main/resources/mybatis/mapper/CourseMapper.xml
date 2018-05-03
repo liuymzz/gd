@@ -22,4 +22,16 @@
         left join user u on c.course_teacher_id = u.user_id
     </select>
 
+    <update id="updateCourseStatus2Starting">
+        update course
+        set course_status = '2'
+        where date_sub(curdate(), interval -1 day) > course_start_date and course_status = '1'
+    </update>
+
+    <update id="updateCourseStatus2End">
+        update course
+        set course_status = '3'
+        where now() > course_end_date and course_status = '2'
+    </update>
+
 </mapper>
