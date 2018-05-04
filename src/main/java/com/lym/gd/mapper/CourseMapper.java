@@ -1,6 +1,8 @@
 package com.lym.gd.mapper;
 
 import com.lym.gd.DTO.CourseAndUserDTO;
+import com.lym.gd.entity.Course;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -23,5 +25,12 @@ public interface CourseMapper {
      * @return
      */
     int updateCourseStatus2End();
+
+    /**
+     * 根据开课时间获取课程,时间格式：yyyy-MM-dd
+     * @param startDate
+     * @return
+     */
+    List<Course> findCoursesByCourseStartDate(@Param("startDate") String startDate);
 
 }

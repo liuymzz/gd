@@ -14,12 +14,19 @@
 
     </resultMap>
 
+    <resultMap id="course" type="com.lym.gd.entity.Course">
+        <id property="courseId" column="course_id" />
+        <result property="courseCreateDate" column="course_create_date" />
+        <result property="courseTitle" column="course_title" />
+    </resultMap>
+
     <select id="findCourseAndUserByCourseStatus" resultMap="courseAndUserDTO">
         select
             u.user_icon,u.user_name,
             c.course_id,c.course_title,c.course_create_date
         from course c
         left join user u on c.course_teacher_id = u.user_id
+        where c.course_status = '1'
     </select>
 
     <update id="updateCourseStatus2Starting">
@@ -33,5 +40,13 @@
         set course_status = '3'
         where now() > course_end_date and course_status = '2'
     </update>
+
+    <select id="findCoursesByCourseStartDate" resultMap="course">
+        select
+            course_id,
+            course_title
+        from course c
+        where date_format(c.course_start_date, '%Y-%m-%d') = #{startDate}
+    </select>
 
 </mapper>

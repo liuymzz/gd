@@ -26,4 +26,6 @@ public interface StudentCourseRepository extends JpaRepository<StudentCourse,Str
      * @return
      */
     List<StudentCourse> findByStudentIdAndCourseStatus(String studentId,String courseStatus);
+
+    List<StudentCourse> findByCourseId(String courseId);
 }
