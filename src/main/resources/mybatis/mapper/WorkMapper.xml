@@ -48,7 +48,7 @@
             left join course c on sc.`course_id` = c.`course_id`
             left join work w on w.`course_id` = c.`course_id`
             left join user u on u.`user_id` = c.`course_teacher_id`
-        where c.course_status = '2' and sc.`student_id` = ${studentId}
+        where c.course_status = '2' and sc.`student_id` = ${studentId} and w.work_id is not null
     </select>
 
     <select id="getNormalWorkByWorkId" resultMap="work" parameterType="string">
